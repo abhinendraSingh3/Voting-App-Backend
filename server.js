@@ -2,7 +2,8 @@ const express=require('express')
 const app= express();
 //require('dotenv').config();
 const bodyparser=require('body-parser')
-const user=require('./models/user')
+const userSch=require('./models/user')
+const candidateSch=require('./models/candidate')
 
 app.use(bodyparser.json()); //used for reading data from body
 

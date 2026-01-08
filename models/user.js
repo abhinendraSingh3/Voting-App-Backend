@@ -54,4 +54,4 @@ const userSchema=new mongoose.Schema({
 //export
 //👉 Schemas define rules
 //👉Model interact with the database
-module.exports=mongoose.model('user',userSchema);
+module.exports=mongoose.model('userSch',userSchema);
