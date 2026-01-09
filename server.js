@@ -17,4 +17,4 @@ app.use('/',(req, res)=>{
 //use for publishing port
 app.listen(PORT ,()=>{
     console.log(`Server running at port http://localhost:${PORT}`)
-})
+}) 
