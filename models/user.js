@@ -10,16 +10,15 @@ const userSchema=new mongoose.Schema({
         type:Number,
      },
     email:{
-        type:strinbg,
+        type:String,
         
     },
     mobile:{
         type:String,
-        
     },
     address:{
         type:String,
-        require:true
+        required:true
     },
 
     aadharNumber:{
@@ -33,12 +32,13 @@ const userSchema=new mongoose.Schema({
         required:true
     },
     role:{
+        type:String, 
         required:true,
         enum:['voter','admin'],
         default:'voter'
     },
     isVoted:{
-        tyoe:Boolean,
+        type:Boolean,
         default:false
     }
 

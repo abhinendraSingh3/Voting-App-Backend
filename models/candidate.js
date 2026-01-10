@@ -40,4 +40,4 @@ voteCount:{
 
 });
 
-module.exports=mongoose.models('candidateSch',candidateSchema)
+module.exports=mongoose.model('candidateSch',candidateSchema)
