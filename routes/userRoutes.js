@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');
+const { Schema } = require('mongoose');
+require('dotenv').config();
 
 //post method to add login credentials
 router.post('/signup', async (req, res) => {
@@ -48,9 +50,56 @@ router.post('/signup', async (req, res) => {
 
     }
     catch (error) {
-        res.status(500).json({ error: error.message,
-            message:"internal server error"
+        res.status(500).json({
+            error: error.message,
+            message: "internal server error"
         })
 
     }
+});
+
+//post route for login
+
+router.post('/login', async (req, res) => {
+    try {
+        const { aadharNumber, password } = req.body;
+
+
+        const validUser = await userSchema.findOne({ aadharNumber });
+        if (!validUser) {
+            return res.status(400).send({
+                message: "Aadhar Number or password is wrong"
+            })
+        }
+        const isMatch = await bcrypt.compare(password, validUser.password)
+        if (!isMatch) {
+            return res.status(400).send({
+                message: 'Aadhar number or password is wrong'
+            });
+        }
+
+        //login success
+        res.status(200).send({
+            message: "login successful";
+            userId=validUser._id
+        })
+
+        // generate jwt payload because its necessary to send token after the user has been verified
+        const payload={
+            userId=validUser.id
+        }
+        const token=jwt.sign(payload,process.env.JWT_SECRET ,{
+            expiresIn:'1h'
+        });
+        res.send(token);
+
+
+    }
+    catch (error) {
+        res.status(500).send({
+            message: "Server error",
+            error
+        });
+    }
+
 })
