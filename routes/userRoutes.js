@@ -4,7 +4,7 @@ const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');
 const { Schema } = require('mongoose');
 require('dotenv').config();
-const jwtAuthMiddleware=require('./../jwtAuthMid')
+const jwtAuthMiddleware = require('./../jwtAuthMid')
 
 //post method to add login credentials
 router.post('/signup', async (req, res) => {
@@ -85,11 +85,11 @@ router.post('/login', async (req, res) => {
         })
 
         // generate jwt payload because its necessary to send token after the user has been verified
-        const payload={
+        const payload = {
             userId=validUser.id
         }
-        const token=jwt.sign(payload,process.env.JWT_SECRET ,{
-            expiresIn:'1h'
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: '1h'
         });
         res.send(token);
 
@@ -105,22 +105,57 @@ router.post('/login', async (req, res) => {
 })
 
 //profile route
-router.get('/profile',jwtAuthMiddleware,async(req,res)=>{
-    try{
-    const userPData=req.data; //extracting user data from jwt token
-    const userId=userPData.id;
-    const userFound=userSchema.findById(userId);
-    if(!r){
-        res.status(401).json({message:"Internal server error"})
+router.get('/profile', jwtAuthMiddleware, async (req, res) => {
+    try {
+        const userPData = req.data; //extracting user data from jwt token
+        const userId = userPData.id;
+        const userFound = await userSchema.findById(userId);
+        if (!r) {
+            res.status(401).json({ message: "Internal server error" })
+        }
+        res.status(200).json({ userFound })
     }
-    res.status(200).json({userFound})
-    }
-    catch(error){
+    catch (error) {
         console.log(err);
-        res.status(401).json({message:"Internal server error"})
+        res.status(401).json({ message: "Internal server error" })
 
     }
-    
+})
 
+//password changing route.
+router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
+    try {
+        //we are extracting user data after it has verified in the jwt
+        const userdata = req.data;
+        const userId = userdata.id;// here we are extracting id
 
+        const { currentPassword, newPassword } = req.body;
+
+        //finding user by userId in db
+        const userFound = userSchema.findById(userId);
+        if (!userFound) {
+            console.log(error)
+            return res.status(400).send({
+                message: 'User Not found'
+            });
+        }
+        //comparing the existing password of the user is correct or not 
+        const isMatch = await bcrypt.compare(currentPassword, userId.password)
+        if (!isMatch) {
+            return res.status(400).send({
+                message: 'current password is Incorrect'
+            });
+        }
+        //user password save
+        userId.password = newPassword;
+        await userFound.save()
+        console.log("password updated")
+        res.status(200).json({message:"Password Updated"});
+    }
+    catch (error) {
+        console.log(err);
+        res.status(401).json({
+            error: "internal server error"
+        })
+    }
 })
