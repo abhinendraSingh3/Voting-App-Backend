@@ -4,6 +4,7 @@ const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');
 const { Schema } = require('mongoose');
 require('dotenv').config();
+const jwtAuthMiddleware=require('./../jwtAuthMid')
 
 //post method to add login credentials
 router.post('/signup', async (req, res) => {
@@ -59,7 +60,6 @@ router.post('/signup', async (req, res) => {
 });
 
 //post route for login
-
 router.post('/login', async (req, res) => {
     try {
         const { aadharNumber, password } = req.body;
@@ -68,13 +68,13 @@ router.post('/login', async (req, res) => {
         const validUser = await userSchema.findOne({ aadharNumber });
         if (!validUser) {
             return res.status(400).send({
-                message: "Aadhar Number or password is wrong"
+                message: "Aadhar Number is incorrect or user is not signed up"
             })
         }
         const isMatch = await bcrypt.compare(password, validUser.password)
         if (!isMatch) {
             return res.status(400).send({
-                message: 'Aadhar number or password is wrong'
+                message: 'password is Incorrect'
             });
         }
 
@@ -101,5 +101,13 @@ router.post('/login', async (req, res) => {
             error
         });
     }
+
+})
+
+//profile route
+router.get('/profile',jwtAuthMiddleware,async(req,res)=>{
+    const userBData=req.body;
+    
+
 
 })
