@@ -6,6 +6,7 @@ const { Schema } = require('mongoose');
 require('dotenv').config();
 const jwtAuthMiddleware = require('./../jwtAuthMid');
 const bodyParser = require('body-parser');
+const jwt=require('jsonwebtoken')
 
 //----post method to add login credentials-----
 router.post('/signup', async (req, res) => {
@@ -44,6 +45,7 @@ router.post('/signup', async (req, res) => {
         // save the data to db
         const response = await createU.save();
         console.log("data saved in db");
+        console.log(res.json(response))
         res.status(201).json({
             message: 'User Registered Successfuly'
         })
@@ -62,6 +64,7 @@ router.post('/signup', async (req, res) => {
 //--------post route for login---------------
 router.post('/login', async (req, res) => {
     try {
+        
         const { aadharNumber, password } = req.body;
 
 
@@ -77,37 +80,38 @@ router.post('/login', async (req, res) => {
                 message: 'password is Incorrect'
             });
         }
-
-        //login success
-        res.status(200).send({
-            message: "login successful"
-        })
-
         // generate jwt payload because its necessary to send token after the user has been verified
         const payload = {
-            userId:validUser.id
+            userId:validUser._id
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1h'
         });
-        res.send(token);
 
-
+           //login success
+        res.status(200).send({
+            message: "login successful",
+            token:token
+        })
     }
     catch (error) {
-        res.status(500).send({
-            message: "Server error",
-            error
-        });
-    }
+    console.log("LOGIN ERROR =>", error);
+    res.status(500).send({
+        message: "Server error"
+    });
+}
+
 
 })
 
 //------------profile route--------------------
 router.get('/profile', jwtAuthMiddleware, async (req, res) => {
     try {
+        console.log('profile call')
         const userPData = req.data; //extracting user data from jwt token
-        const userId = userPData.id;
+        console.log(userPData,'userPdata')
+        const userId = userPData.userId;// "userId" is the format in which jwt sends resp
+        
         const userFound = await userSchema.findById(userId);
         if (!userFound) {
             res.status(401).json({ message: "Internal server error" })
@@ -115,7 +119,7 @@ router.get('/profile', jwtAuthMiddleware, async (req, res) => {
         res.status(200).json({ userFound })
     }
     catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(401).json({ message: "Internal server error" })
 
     }
