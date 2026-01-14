@@ -1,17 +1,21 @@
 const express=require('express')
 const app= express();
 //require('dotenv').config();
-const bodyparser=require('body-parser')
 const userSch=require('./models/user')
 const candidateSch=require('./models/candidate')
+const userRoutes=require('./routes/userRoutes')
+const db= require('./db');
 
+
+const bodyparser=require('body-parser')
 app.use(bodyparser.json()); //used for reading data from body
 
-const PORT=process.env.Port || 3000;// used for recieving dynamic port set for cloud platform and if not then use default port 3000
+const PORT=process.env.PORT || 3000;// used for recieving dynamic port set for cloud platform and if not then use default port 3000
 
-app.use('/',(req, res)=>{
-    res.send('hello its working')
-})
+
+
+//use the routers
+app.use('/user',userRoutes);
 
 
 //use for publishing port

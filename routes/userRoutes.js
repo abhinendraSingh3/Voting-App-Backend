@@ -4,16 +4,18 @@ const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');
 const { Schema } = require('mongoose');
 require('dotenv').config();
-const jwtAuthMiddleware = require('./../jwtAuthMid')
+const jwtAuthMiddleware = require('./../jwtAuthMid');
+const bodyParser = require('body-parser');
 
-//post method to add login credentials
+//----post method to add login credentials-----
 router.post('/signup', async (req, res) => {
 
     try {
         const { name, address, aadharNumber, password, role } = req.body;// assuming the requestbody contains the user data
-
+        
+        
         //check if the required field has been set or not
-        if (!name || address || aadharNumber || password || role) {
+        if (!(name || address || aadharNumber || password || role)) {
             return res.status(400).json({
                 message: "All fields are required"
 
@@ -47,8 +49,6 @@ router.post('/signup', async (req, res) => {
         })
 
         //if something broke then.
-
-
     }
     catch (error) {
         res.status(500).json({
@@ -59,7 +59,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-//post route for login
+//--------post route for login---------------
 router.post('/login', async (req, res) => {
     try {
         const { aadharNumber, password } = req.body;
@@ -80,13 +80,12 @@ router.post('/login', async (req, res) => {
 
         //login success
         res.status(200).send({
-            message: "login successful";
-            userId=validUser._id
+            message: "login successful"
         })
 
         // generate jwt payload because its necessary to send token after the user has been verified
         const payload = {
-            userId=validUser.id
+            userId:validUser.id
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1h'
@@ -104,13 +103,13 @@ router.post('/login', async (req, res) => {
 
 })
 
-//profile route
+//------------profile route--------------------
 router.get('/profile', jwtAuthMiddleware, async (req, res) => {
     try {
         const userPData = req.data; //extracting user data from jwt token
         const userId = userPData.id;
         const userFound = await userSchema.findById(userId);
-        if (!r) {
+        if (!userFound) {
             res.status(401).json({ message: "Internal server error" })
         }
         res.status(200).json({ userFound })
@@ -122,7 +121,7 @@ router.get('/profile', jwtAuthMiddleware, async (req, res) => {
     }
 })
 
-//password changing route.
+// ------------password changing route----------
 router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
     try {
         //we are extracting user data after it has verified in the jwt
@@ -132,7 +131,7 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
         const { currentPassword, newPassword } = req.body;
 
         //finding user by userId in db
-        const userFound = userSchema.findById(userId);
+        const userFound = await userSchema.findById(userId);
         if (!userFound) {
             console.log(error)
             return res.status(400).send({
@@ -140,7 +139,7 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
             });
         }
         //comparing the existing password of the user is correct or not 
-        const isMatch = await bcrypt.compare(currentPassword, userId.password)
+        const isMatch = await bcrypt.compare(currentPassword, userFound.password)
         if (!isMatch) {
             return res.status(400).send({
                 message: 'current password is Incorrect'
@@ -159,3 +158,5 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
         })
     }
 })
+
+module.exports=router; 
