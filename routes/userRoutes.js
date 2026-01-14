@@ -110,7 +110,7 @@ router.get('/profile', jwtAuthMiddleware, async (req, res) => {
         console.log('profile call')
         const userPData = req.data; //extracting user data from jwt token
         console.log(userPData,'userPdata')
-        const userId = userPData.userId;// "userId" is the format in which jwt sends resp
+        const userId = userPData.userId;// "userId" is the format in which jwt sends response
         
         const userFound = await userSchema.findById(userId);
         if (!userFound) {
