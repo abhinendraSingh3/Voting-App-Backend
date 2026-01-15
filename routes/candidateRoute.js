@@ -153,4 +153,73 @@ catch(error){
     return res.status(500).json({message:"Internal Server error"})
 }
 })
+
+
+//---------------------voting------------------------------------------
+router.post('/vote/:candidateId',jwtAuthMiddleware,async (req,res)=>{
+//no admin can vote
+//only user can vote only once
+try{
+    const candidateId=req.params.candidateId// extract id from url
+    const userId=req.data.userId; //extract userI from authmiddleware
+
+    //find the candidate document with specific candidateid
+    const candidateF=await candidateSch.findOne({candidateId:candidateId})
+    if(!candidate){
+        return res.status(401).json({message:"cannot find the candidate"})
+    }
+
+    const userF=await userSchema.findById(userId);
+    if(!userF){
+        return res.status(401).json({message:"cannot find the user"})
+    }
+    if(userF.role=="admin"){
+        return res.status(401).json({message:"admins cannot vote "})
+    }
+    if(user.isVoted){
+        return res.status(401).json({message:"You have already voted"})
+    }
+
+    //update the candidate voteList
+    candidateF.votes.push({
+        user:userId
+    })
+    candidate.voteCount++;
+    await candidate.save()
+    
+    //update the user Document
+    userF.isVoted=true;
+    await userF.save();
+
+    return res.status(200).json({message:"Votes added successfully"})
+
+}
+catch(error){
+    return res.status(501).json({message:"Internal server error"})
+}
+})
+
+//------------voteCount-------------
+router.get('/:candidateId',jwtAuthMiddleware,async(req,res){
+try{
+const candidateId=req.params.candidateId;
+
+const candidateF=candidateSch.findOne({candidateId:candidateId})
+
+if(!candidateF){
+    return res.status(401).json({message:"candidate not found"})
+}
+
+const votes=candidateSch.voteCount;
+return res.status(201).json({votes})
+
+}
+catch(error){
+   return res.status(501).json({message:"Internal server error"}) 
+}
+
+})
+
+
+
 module.exports=router
