@@ -14,34 +14,43 @@ const checkAdminRole = async (userId) => {
         }
         if (!user) {
             return false;
+            
         }
         return false
 
     }
     catch (error) {
         console.log('error in adminRole-', error)
+
         return false
+
     }
 }
 
 //add new candidate
-router.post('/candidate', jwtAuthMiddleware, async (req, res) => {
+router.post('/', jwtAuthMiddleware, async (req, res) => {
     try {
-        const adminuserId = req.body.userId //admin user id
-        const candidateId=req.params.id; //exracting the id from body
+        const adminuserId = req.data.userId //admin user id
+        
+        const candiId=req.params.id; //exracting the id from body
+        const {candidateName,party,age,candidateId} =req.body;
 
         const isAdmin = await checkAdminRole(adminuserId);
         if (!isAdmin) {
-            return res.status(401).json({ message: "Only admins are allowed to update" })
+            return res.status(401).json({ message: "Only admins are allowed to add candidates" })
         }
         const candidateData = req.body;// extracting user data from body
+       
 
         // check the all the required fields are there
-        if (!Candidate_name || !party || !age || !candidateId) {
+         
+        if (!candidateName || !party || !age || !candidateId) {
+            
             return res.status(401).json({ message: "Please fill all the required fields" })
+            
         }
 
-        const checkCandiate = await candidateSch.findById(candidateId);
+        const checkCandiate = await candidateSch.findById(candiId);
         if (checkCandiate) {
             return res.status(201).json({ message: "user already existed" })
         }
@@ -65,11 +74,13 @@ router.post('/candidate', jwtAuthMiddleware, async (req, res) => {
 
 })
 
-//upadate candidate
+//-----------------------------upadate candidate---------------------------------
 router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
     try {
 
-        const candidateId = req.params.candidateId // candidate id from body
+        const candidateId = req.params.candidateId //getting from candidate id from url\
+
+        
         const userId = req.data.userId// admin user id from jwtauthmiddleware
 
         const isAdmin = await checkAdminRole(userId);
@@ -78,15 +89,18 @@ router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
         }
 
         const bData = req.body;
+        
 
         //finding if the candidate exists
-        const findCandidate = await candidateSch.findById(candidateId);
+        const findCandidate = await candidateSch.findOne({candidateId:candidateId});//findone used here because candidateid is custom field in db
+        console.log('herer is the value')
+        
         if (!findCandidate) {
             return res.status(404).json({ message: "User not found" })
         }
 
         //updating the data
-        const updateData = await candidateSch.findByIdAndUpdate(candidateId, bData, {
+        const updateData = await candidateSch.findOneAndUpdate({candidateId:candidateId}, bData, {
             new: true,
             runValidators: true
         })
@@ -106,4 +120,38 @@ router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
 
 
 })
-module.exports=routers
+
+
+//-------------delete candidate------------------------
+router.delete('/:candidateid',jwtAuthMiddleware,async (req,res)=>{
+    try{
+        //extrating the ids from body and jwtmiddleware
+    const adminId=req.data.userId;
+    const candidateId=req.params.candidateid;
+
+        //checking if the user is admin
+    const isAdmin=await checkAdminRole(adminId);
+    if(!isAdmin){
+        return res.status(401).json({message:"User has to be admin to perform changes"})
+    }
+
+    //checking if the candidate is present in the db
+    const userCheck=await candidateSch.findById(candidateId);
+    if(!userCheck){
+        return res.status(401).json({message:"User doesn't exist"})
+    }
+
+    //deleting the data existing data
+    const dataDelete=await candidateSch.findOneAndDelete({candidateId:candidateId})
+    if(!dataDelete){
+        return res.status(404).json({message:"Data Not deleted"})
+    }
+
+    return res.status(200).json({message:"Data deleted successfully"})
+}
+catch(error){
+    return res.status(500).json({message:"Internal Server error"})
+}
+
+})
+module.exports=router

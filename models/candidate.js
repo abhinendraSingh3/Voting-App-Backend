@@ -3,7 +3,7 @@ const mongoose= require('mongoose')
 // define candidate Schema
 const candidateSchema=new mongoose.Schema({
 
-Candidate_Name:{
+candidateName:{
         type:String,
         required:true
     },
@@ -38,9 +38,6 @@ voteCount:{
     type:Number,
     default:0
 }
-
-
-
 
 });
 

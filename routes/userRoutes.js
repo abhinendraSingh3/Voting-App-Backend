@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
                 message: "User already existed"
             });
         }
-
+        
         //storing password using bcrypt
         const saltRounds = 10;
         //hashpass
@@ -97,6 +97,7 @@ router.post('/login', async (req, res) => {
     catch (error) {
     console.log("LOGIN ERROR =>", error);
     res.status(500).send({
+        
         message: "Server error"
     });
 }
