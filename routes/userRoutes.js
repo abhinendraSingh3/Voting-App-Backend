@@ -6,21 +6,27 @@ const { Schema } = require('mongoose');
 require('dotenv').config();
 const jwtAuthMiddleware = require('./../jwtAuthMid');
 const bodyParser = require('body-parser');
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 //----post method to add login credentials-----
 router.post('/signup', async (req, res) => {
 
     try {
         const { name, address, aadharNumber, password, role } = req.body;// assuming the requestbody contains the user data
-        
-        
+
+
         //check if the required field has been set or not
         if (!(name || address || aadharNumber || password || role)) {
             return res.status(400).json({
                 message: "All fields are required"
 
             })
+        }
+
+        //check if the admin role is present or not
+        const checkAdmin = await userSchema.find({ role: "admin" })
+        if (checkAdmin.length > 0) {
+            return res.status(401).json({ message: "only one admin is allowed and that is already present" })
         }
 
         //checking if the user already existed or not
@@ -30,7 +36,7 @@ router.post('/signup', async (req, res) => {
                 message: "User already existed"
             });
         }
-        
+
         //storing password using bcrypt
         const saltRounds = 10;
         //hashpass
@@ -64,7 +70,7 @@ router.post('/signup', async (req, res) => {
 //--------post route for login---------------
 router.post('/login', async (req, res) => {
     try {
-        
+
         const { aadharNumber, password } = req.body;
 
 
@@ -82,25 +88,25 @@ router.post('/login', async (req, res) => {
         }
         // generate jwt payload because its necessary to send token after the user has been verified
         const payload = {
-            userId:validUser._id
+            userId: validUser._id
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1h'
         });
 
-           //login success
+        //login success
         res.status(200).send({
             message: "login successful",
-            token:token
+            token: token
         })
     }
     catch (error) {
-    console.log("LOGIN ERROR =>", error);
-    res.status(500).send({
-        
-        message: "Server error"
-    });
-}
+        console.log("LOGIN ERROR =>", error);
+        res.status(500).send({
+
+            message: "Server error"
+        });
+    }
 
 
 })
@@ -110,9 +116,9 @@ router.get('/profile', jwtAuthMiddleware, async (req, res) => {
     try {
         console.log('profile call')
         const userPData = req.data; //extracting user data from jwt token
-        console.log(userPData,'userPdata')
+        console.log(userPData, 'userPdata')
         const userId = userPData.userId;// "userId" is the format in which jwt sends response
-        
+
         const userFound = await userSchema.findById(userId);
         if (!userFound) {
             res.status(401).json({ message: "Internal server error" })
@@ -154,7 +160,7 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
         userId.password = newPassword;
         await userFound.save()
         console.log("password updated")
-        res.status(200).json({message:"Password Updated"});
+        res.status(200).json({ message: "Password Updated" });
     }
     catch (error) {
         console.log(err);
@@ -164,4 +170,4 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
     }
 })
 
-module.exports=router; 
+module.exports = router; 

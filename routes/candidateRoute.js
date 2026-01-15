@@ -136,7 +136,7 @@ router.delete('/:candidateid',jwtAuthMiddleware,async (req,res)=>{
     }
 
     //checking if the candidate is present in the db
-    const userCheck=await candidateSch.findById(candidateId);
+    const userCheck=await candidateSch.findOne({candidateId:candidateId});
     if(!userCheck){
         return res.status(401).json({message:"User doesn't exist"})
     }
@@ -152,6 +152,5 @@ router.delete('/:candidateid',jwtAuthMiddleware,async (req,res)=>{
 catch(error){
     return res.status(500).json({message:"Internal Server error"})
 }
-
 })
 module.exports=router
