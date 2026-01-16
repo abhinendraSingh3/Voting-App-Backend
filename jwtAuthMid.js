@@ -21,10 +21,8 @@ const jwtAuthMiddleware=(req,res,next)=>{
         console.log(token, 'token');
         
         const decoded=jwt.verify(token,process.env.JWT_SECRET);// verify if the token is valid or not
-        console.log("here");
         
         req.data=decoded;// attach user data
-        console.log(req.data)
         next();//go to next
     }
     catch(error){

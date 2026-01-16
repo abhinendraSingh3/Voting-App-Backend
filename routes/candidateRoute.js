@@ -14,7 +14,7 @@ const checkAdminRole = async (userId) => {
         }
         if (!user) {
             return false;
-            
+
         }
         return false
 
@@ -31,23 +31,23 @@ const checkAdminRole = async (userId) => {
 router.post('/', jwtAuthMiddleware, async (req, res) => {
     try {
         const adminuserId = req.data.userId //admin user id
-        
-        const candiId=req.params.id; //exracting the id from body
-        const {candidateName,party,age,candidateId} =req.body;
+
+        const candiId = req.params.id; //exracting the id from body
+        const { candidateName, party, age, candidateId } = req.body;
 
         const isAdmin = await checkAdminRole(adminuserId);
         if (!isAdmin) {
             return res.status(401).json({ message: "Only admins are allowed to add candidates" })
         }
         const candidateData = req.body;// extracting user data from body
-       
+
 
         // check the all the required fields are there
-         
+
         if (!candidateName || !party || !age || !candidateId) {
-            
+
             return res.status(401).json({ message: "Please fill all the required fields" })
-            
+
         }
 
         const checkCandiate = await candidateSch.findById(candiId);
@@ -64,7 +64,7 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
         res.status(201).json({ message: "New candidate Saved" })
     }
 
-    catch(error) {
+    catch (error) {
         res.status(500).json({
             error: error.message,
             message: "internal server error"
@@ -75,12 +75,12 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
 })
 
 //-----------------------------upadate candidate---------------------------------
-router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
+router.put('/:candidateId', jwtAuthMiddleware, async (req, res) => {
     try {
 
         const candidateId = req.params.candidateId //getting from candidate id from url\
 
-        
+
         const userId = req.data.userId// admin user id from jwtauthmiddleware
 
         const isAdmin = await checkAdminRole(userId);
@@ -89,18 +89,18 @@ router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
         }
 
         const bData = req.body;
-        
+
 
         //finding if the candidate exists
-        const findCandidate = await candidateSch.findOne({candidateId:candidateId});//findone used here because candidateid is custom field in db
+        const findCandidate = await candidateSch.findOne({ candidateId: candidateId });//findone used here because candidateid is custom field in db
         console.log('herer is the value')
-        
+
         if (!findCandidate) {
             return res.status(404).json({ message: "User not found" })
         }
 
         //updating the data
-        const updateData = await candidateSch.findOneAndUpdate({candidateId:candidateId}, bData, {
+        const updateData = await candidateSch.findOneAndUpdate({ candidateId: candidateId }, bData, {
             new: true,
             runValidators: true
         })
@@ -123,103 +123,109 @@ router.put('/:candidateId', jwtAuthMiddleware,async (req, res) => {
 
 
 //-------------delete candidate------------------------
-router.delete('/:candidateid',jwtAuthMiddleware,async (req,res)=>{
-    try{
+router.delete('/:candidateid', jwtAuthMiddleware, async (req, res) => {
+    try {
         //extrating the ids from body and jwtmiddleware
-    const adminId=req.data.userId;
-    const candidateId=req.params.candidateid;
+        const adminId = req.data.userId;
+        const candidateId = req.params.candidateid;
 
         //checking if the user is admin
-    const isAdmin=await checkAdminRole(adminId);
-    if(!isAdmin){
-        return res.status(401).json({message:"User has to be admin to perform changes"})
-    }
+        const isAdmin = await checkAdminRole(adminId);
+        if (!isAdmin) {
+            return res.status(401).json({ message: "User has to be admin to perform changes" })
+        }
 
-    //checking if the candidate is present in the db
-    const userCheck=await candidateSch.findOne({candidateId:candidateId});
-    if(!userCheck){
-        return res.status(401).json({message:"User doesn't exist"})
-    }
+        //checking if the candidate is present in the db
+        const userCheck = await candidateSch.findOne({ candidateId: candidateId });
+        if (!userCheck) {
+            return res.status(401).json({ message: "User doesn't exist" })
+        }
 
-    //deleting the data existing data
-    const dataDelete=await candidateSch.findOneAndDelete({candidateId:candidateId})
-    if(!dataDelete){
-        return res.status(404).json({message:"Data Not deleted"})
-    }
+        //deleting the data existing data
+        const dataDelete = await candidateSch.findOneAndDelete({ candidateId: candidateId })
+        if (!dataDelete) {
+            return res.status(404).json({ message: "Data Not deleted" })
+        }
 
-    return res.status(200).json({message:"Data deleted successfully"})
-}
-catch(error){
-    return res.status(500).json({message:"Internal Server error"})
-}
+        return res.status(200).json({ message: "Data deleted successfully" })
+    }
+    catch (error) {
+        return res.status(500).json({ message: "Internal Server error" })
+    }
 })
 
 
 //---------------------voting------------------------------------------
-router.post('/vote/:candidateId',jwtAuthMiddleware,async (req,res)=>{
-//no admin can vote
-//only user can vote only once
-try{
-    const candidateId=req.params.candidateId// extract id from url
-    const userId=req.data.userId; //extract userI from authmiddleware
+router.post('/vote/:candidateId', jwtAuthMiddleware, async (req, res) => {
+    //no admin can vote
+    //only user can vote only once
+    try {
 
-    //find the candidate document with specific candidateid
-    const candidateF=await candidateSch.findOne({candidateId:candidateId})
-    if(!candidate){
-        return res.status(401).json({message:"cannot find the candidate"})
+        const candidateId = req.params.candidateId// extract id from url
+        const userId = req.data.userId; //extract userI from authmiddleware 
+
+
+        //find the candidate document with specific candidateid
+        const candidateF = await candidateSch.findOne({ candidateId: candidateId })
+
+        if (!candidateF) {
+            return res.status(401).json({ message: "cannot find the candidate" })
+        }
+        
+
+        const userF = await userSchema.findById(userId);
+        
+        if (!userF) {
+            return res.status(401).json({ message: "cannot find the user" })
+        }
+        if (userF.role == "admin") {
+            return res.status(401).json({ message: "admins cannot vote " })
+        }
+        if (userF.isVoted) {
+            return res.status(401).json({ message: "You have already voted" })
+        }
+
+        //update the candidate voteList
+        candidateF.votes.push({
+            user: userId
+        })
+
+        candidateF.voteCount++;
+        await candidateF.save()
+
+        //update the user Document
+        userF.isVoted = true;
+        await userF.save();
+
+        return res.status(200).json({ message: "Votes added successfully" })
+
     }
+    catch (error) {
 
-    const userF=await userSchema.findById(userId);
-    if(!userF){
-        return res.status(401).json({message:"cannot find the user"})
+        return res.status(500).json({ message: "Internal server error" })
     }
-    if(userF.role=="admin"){
-        return res.status(401).json({message:"admins cannot vote "})
-    }
-    if(user.isVoted){
-        return res.status(401).json({message:"You have already voted"})
-    }
-
-    //update the candidate voteList
-    candidateF.votes.push({
-        user:userId
-    })
-    candidate.voteCount++;
-    await candidate.save()
-    
-    //update the user Document
-    userF.isVoted=true;
-    await userF.save();
-
-    return res.status(200).json({message:"Votes added successfully"})
-
-}
-catch(error){
-    return res.status(501).json({message:"Internal server error"})
-}
 })
 
 //------------voteCount-------------
-router.get('/:candidateId',jwtAuthMiddleware,async(req,res){
-try{
-const candidateId=req.params.candidateId;
+router.get('/:candidateId', jwtAuthMiddleware, async (req, res) => {
+    try {
+        const candidateId = req.params.candidateId;
 
-const candidateF=candidateSch.findOne({candidateId:candidateId})
+        const candidateF = candidateSch.findOne({ candidateId: candidateId })
 
-if(!candidateF){
-    return res.status(401).json({message:"candidate not found"})
-}
+        if (!candidateF) {
+            return res.status(401).json({ message: "candidate not found" })
+        }
 
-const votes=candidateSch.voteCount;
-return res.status(201).json({votes})
 
-}
-catch(error){
-   return res.status(501).json({message:"Internal server error"}) 
-}
+
+    }
+    catch (error) {
+        return res.status(501).json({ message: "Internal server error" })
+    }
 
 })
 
 
 
-module.exports=router
+module.exports = router
