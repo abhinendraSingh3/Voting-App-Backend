@@ -52,30 +52,36 @@ Voting-App/
 ```bash
 git clone https://github.com/your-username/Voting-App.git
 cd Voting-App
+```
 2️⃣ Install Dependencies
+```
 npm install
+```
+
 
 3️⃣ Configure Environment Variables
-
 Create a .env file in the root directory:
-
-PORT=5000
+```
+PORT=3000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
+```
 
 
 ⚠️ Never commit your .env file to GitHub
 
 4️⃣ Start the Server
+```
 npm start
-
+```
 or (if using nodemon)
+```
 npm run dev
-
+```
 Server will run on:
-
+```
 http://localhost:3000
-
+```
 🔐 Authentication Flow
 User registers / logs in
 Server issues a JWT token
