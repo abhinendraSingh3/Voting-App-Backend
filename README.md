@@ -82,61 +82,82 @@ Server will run on:
 ```
 http://localhost:3000
 ```
-🔐 Authentication Flow
-User registers / logs in
-Server issues a JWT token
-Token is required in request headers:
-Authorization: Bearer <token>
 
-Protected routes validate token using jwtAuthMid.js
+## Authentication Flow
+User registers / logs in
+
+Server issues a JWT token
+
+Token is required in request headers:
+
+```
+Authorization: Bearer <token>
+```
+**Protected routes validate token using jwtAuthMid.js**
 
 📡 API Endpoints (Overview)
-Auth Routes
-POST /auth/register – Register a new user
-POST /auth/login – Login user
 
-Candidate Routes
-POST /candidates – Add a candidate (Admin)
-GET /candidates – Get all candidates
+**Auth Routes**
 
-Voting Routes
-POST /vote – Cast a vote
-GET /votes/count – Get vote counts
+* POST /auth/register – Register a new user
 
-📌 Exact routes may vary — check the routes/ directory for implementation details.
+* POST /auth/login – Login user
 
-🛡️ Security Considerations:
-JWT token validation on protected routes
-One-vote-per-user logic enforced
-Environment variables secured with dotenv
-MongoDB schemas validated with Mongoose
+* POST /auth/register – Register a new user
 
-🧪 Testing
+* POST /auth/login – Login user
+
+**🛡️ Security Considerations**
+
+* JWT token validation on protected routes
+
+* One-vote-per-user logic enforced
+
+* Environment variables secured with dotenv
+
+* MongoDB schemas validated with Mongoose
+
+**🧪 Testing**
+
 You can test APIs using:
-Postman
 
-Thunder Client (VS Code)
+* Postman
+
+* Thunder Client (VS Code)
+
 Make sure to include JWT tokens in protected requests.
 
-Future Improvements:
-✅ Role-based access control (Admin/Voter)
-📊 Live vote dashboard
-🧾 Audit logs for votes
-🧪 Unit & integration tests
-🚀 Docker deployment
+**📈 Future Improvements**
 
- Contributing:
-1.Contributions are welcome!
-2.Fork the repository
-3.Create a new branch
-4.Commit your changes
-5.Open a Pull Request
+* ✅ Role-based access control (Admin/Voter)
 
-👨‍💻 Author
+* 📊 Live vote dashboard
+
+* 🧾 Audit logs for votes
+
+* 🧪 Unit & integration tests
+
+* 🚀 Docker deployment
+
+**🤝 Contributing**
+
+Contributions are welcome!
+
+* Fork the repository
+
+* Create a new branch
+
+* Commit your changes
+
+* Open a Pull Request
+
+**👨‍💻 Author**
+
 Abhinendra Singh
 Backend Developer | Node.js | MongoDB
+
 
 ⭐ If you find this project useful, consider giving it a star!
 
 
-
+---
