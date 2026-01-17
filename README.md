@@ -26,26 +26,6 @@ This project provides APIs for managing candidates, casting votes, and retrievin
 
 ---
 
-## 📂 Project Structure
-
-Voting-App/
-│
-├── models/ # Mongoose schemas (User, Candidate, Vote)
-├── routes/ # API route handlers
-├── middleware/
-│ └── jwtAuthMid.js # JWT authentication middleware
-│
-├── db.js # MongoDB connection setup
-├── server.js # Application entry point
-├── votesData.json # Sample / test voting data
-│
-├── .env # Environment variables
-├── package.json
-└── package-lock.json
-
-
----
-
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
