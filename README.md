@@ -83,10 +83,6 @@ Authorization: Bearer <token>
 
 * POST /auth/login – Login user
 
-* POST /auth/register – Register a new user
-
-* POST /auth/login – Login user
-
 **🛡️ Security Considerations**
 
 * JWT token validation on protected routes
