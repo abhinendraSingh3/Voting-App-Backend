@@ -11,6 +11,12 @@ app.use(bodyparser.json()); //used for reading data from body
 
 const PORT=process.env.PORT || 3000;// used for recieving dynamic port set for cloud platform and if not then use default port 3000
 
+app.get('/',(req,res)=>{
+    return res.status(200).json({
+        success:true,
+        message:"App started successfully"
+    })
+});
 
 const userRoutes=require('./routes/userRoutes')
 //use the routers

@@ -1,0 +1,22 @@
+FROM node:18
+
+WORKDIR /votingApp
+
+#copy package files
+COPY package.json ./
+
+#install dependencies
+RUN npm install
+
+#copy all files
+COPY . .
+
+#port expose
+EXPOSE 3000
+
+#start an app
+CMD [ "node","server.js" ]
+
+
+
+

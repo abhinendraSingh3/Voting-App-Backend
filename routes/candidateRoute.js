@@ -58,6 +58,8 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
         const createCandidate = new candidateSch({
             ...req.body
         })
+        
+        
         //save data to db
         const response = await createCandidate.save()
         console.log("Datasaved")
@@ -65,8 +67,9 @@ router.post('/', jwtAuthMiddleware, async (req, res) => {
     }
 
     catch (error) {
+        console.log(error)
         res.status(500).json({
-            error: error.message,
+            
             message: "internal server error"
         })
 
@@ -207,15 +210,18 @@ router.post('/vote/:candidateId', jwtAuthMiddleware, async (req, res) => {
 })
 
 //------------voteCount-------------
-router.get('/:candidateId', jwtAuthMiddleware, async (req, res) => {
+router.get('/votecount', jwtAuthMiddleware, async (req, res) => {
     try {
-        const candidateId = req.params.candidateId;
+        //displaying all the votes 
+        const candidate=await candidateSch.find().sort({voteCount:'desc'});
+        console.log('hello')
 
-        const candidateF = candidateSch.findOne({ candidateId: candidateId })
-
-        if (!candidateF) {
-            return res.status(401).json({ message: "candidate not found" })
-        }
+        //return onlly partyName and vote count
+        const Vrecord=await candidate.map((data)=>{
+            party:data.party,
+            count=data.voteCount
+        })
+        return res.status(200).json({Vrecord})
 
 
 
