@@ -232,6 +232,8 @@ router.get('/votecount', jwtAuthMiddleware, async (req, res) => {
 
 })
 
+router.get('/candidates')
+
 
 
 module.exports = router

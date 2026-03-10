@@ -1,8 +1,17 @@
+<<<<<<< Updated upstream
+=======
+// // What functions go inside:
+// register()      // new user signup
+// login()         // login + return JWT token
+// getProfile()    // get logged in user's profile
+// changePassword() // update password
+
+>>>>>>> Stashed changes
 const express = require('express');
 const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-const jwtAuthMiddleware = require('./../jwtAuthMid');
+const jwtAuthMiddleware = require('../middleware/auth.middleware');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken')
 
@@ -84,7 +93,8 @@ const loginUser=async(req,res)=>{
         }
         // generate jwt payload because its necessary to send token after the user has been verified
         const payload = {
-            userId: validUser._id
+            userId: validUser._id,
+            userRole:validUser.role
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1h'
@@ -126,6 +136,7 @@ const profileView=async(req,res)=>{
     }
 
 }
+const passChange=
 
 const changePass=async(req,res)=>{
      try {
