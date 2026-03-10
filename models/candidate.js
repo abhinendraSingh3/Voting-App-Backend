@@ -16,11 +16,6 @@ age:{
     type:Number,
     required:true
 },
-candidateId:{
-    type:Number,
-    required:true,
-    unique:true
-},
 votes:[
     {
         user:{

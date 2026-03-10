@@ -16,3 +16,4 @@ const authorizedRole=(role)=>{
 }
 
 }
+module.exports=authorizedRole;
