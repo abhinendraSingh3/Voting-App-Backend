@@ -5,7 +5,7 @@ const candidateSchema=new mongoose.Schema({
 
 candidateName:{
         type:String,
-        required:true
+        required:true,
     },
 party:{
     type:String,

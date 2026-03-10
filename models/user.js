@@ -4,17 +4,23 @@ const mongoose=require('mongoose');
 const userSchema=new mongoose.Schema({
     name:{
         type:String,
-        required:true
+        required:true,
+        minLength:[3,'Name must be atleast 3 characters long'],
+        maxLength:[50,'Name cannot exceed 50 characters']
     },
      age:{
         type:Number,
+        min:[19,'Age must be greater than 18'],
+        require:true
      },
     email:{
         type:String,
+        unique:true
         
     },
     mobile:{
         type:String,
+        required:true
     },
     address:{
         type:String,
