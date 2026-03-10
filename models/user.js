@@ -25,7 +25,6 @@ const userSchema=new mongoose.Schema({
         type:Number,
         required:true,
         unique:true
-
     },
     password:{
         type:String,
@@ -40,6 +39,11 @@ const userSchema=new mongoose.Schema({
     isVoted:{
         type:Boolean,
         default:false
+    },
+    votedFor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'candidateSch',
+        default:null
     }
 
 });

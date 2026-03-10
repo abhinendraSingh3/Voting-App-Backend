@@ -136,9 +136,7 @@ const profileView=async(req,res)=>{
     }
 
 }
-const passChange=
-
-const changePass=async(req,res)=>{
+const passChange=async(req,res)=>{
      try {
         //we are extracting user data after it has verified in the jwt
         const userdata = req.data;
