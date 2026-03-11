@@ -3,11 +3,12 @@ const router = express.Router();
 const jwtAuthMiddleware = require('./../jwtAuthMid')
 const authorizedRole=require('./../middleware/rbac.middleware')
 
-const {voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView} =require('./../controller/vote.contoller')
+const {voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView} =require('./../controller/vote.contoller');
+const{createCandidtaLimiter}=require('./../middleware/rateLimiter')
 
 
 //add new candidate
-router.post('/', jwtAuthMiddleware,authorizedRole(admin),addCandidate);
+router.post('/', jwtAuthMiddleware,createCandidtaLimiter,authorizedRole(admin),addCandidate);
 
 //-----------------------------upadate candidate---------------------------------
 router.put('/:candidateId',jwtAuthMiddleware,authorizedRole(admin),updateCandidate)
