@@ -20,6 +20,6 @@ app.get('/',(req,res)=>{
     return res.status(200).json({message:"Hey its listning from server"})
 })
 
-server.listen(3000,()=>{
+server.listen(2321,()=>{
     console.log('server listening at port 3000');
 })

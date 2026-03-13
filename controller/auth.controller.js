@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-=======
-// // What functions go inside:
-// register()      // new user signup
-// login()         // login + return JWT token
-// getProfile()    // get logged in user's profile
-// changePassword() // update password
-
->>>>>>> Stashed changes
 const express = require('express');
 const userSchema = require('./../models/user')
 const bcrypt = require('bcrypt');

@@ -1,17 +1,19 @@
 // This file handles when a user connects and disconnects from your app
+const resultEvents=require('./resultEvent');
 
-const resultEventvents=require('./resultEvent');
 
-module.exports=(io)=>{
+function socketHandler(io){
     io.on('connection',(socket)=>{
-        console.log('user Connected',socket.id);
+        console.log("user connectedd",socket.id);
 
-        //load all events
-        resultEventvents(socket,io)
-    })
-    socket.io('disconneted',()=>{
-        console.log("user disconnected",socket.id)
+        //load events
+        resultEvents(io,socket);
+
+        socket.on('disconnected',()=>{
+            console.log("user disconnected",socket.id)
+        })
+        
     })
 }
 
-module.exports={socketHandler,getIO};
+module.exports=socketHandler;
