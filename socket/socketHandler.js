@@ -3,6 +3,7 @@ const resultEvents=require('./resultEvent');
 
 
 function socketHandler(io){
+    try{
     io.on('connection',(socket)=>{
         console.log("user connectedd",socket.id);
 
@@ -14,6 +15,11 @@ function socketHandler(io){
         })
         
     })
+}
+catch(error){
+    return console.log("socketHandler error==> ", error);
+    
+}
 }
 
 module.exports=socketHandler;

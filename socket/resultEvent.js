@@ -44,10 +44,5 @@ function resultEvent(socket,io){
         console.log("this is the error ===>",err)
     }
     })
-
-
-
-
-
 }
 module.exports=resultEvent
