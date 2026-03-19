@@ -23,8 +23,9 @@ votes:[
             ref:'User',
             required:true
         },
-        votedAt:{
-            type:Date,
+        votedAt:{    
+            
+            type:Date,     
             default:Date.now()
         }
     }
