@@ -28,7 +28,7 @@ const userSchema=new mongoose.Schema({
 
     aadharNumber:{
         type:Number,
-        required:true,
+        required:true,    
         unique:true
     },
     password:{
@@ -50,6 +50,7 @@ const userSchema=new mongoose.Schema({
         ref:'candidateSch',
         default:null
     }
+    election
 
 });
 

@@ -24,7 +24,6 @@ votes:[
             required:true
         },
         votedAt:{    
-            
             type:Date,     
             default:Date.now()
         }
