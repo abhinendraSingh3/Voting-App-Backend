@@ -7,7 +7,7 @@ const {voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,ca
 const{createCandidtaLimiter}=require('./../middleware/rateLimiter')
 
 
-//add new candidate
+//add new candidat
 router.post('/', jwtAuthMiddleware,createCandidtaLimiter,authorizedRole(admin),addCandidate);
 
 //-----------------------------upadate candidate---------------------------------
