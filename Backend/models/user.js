@@ -50,8 +50,6 @@ const userSchema=new mongoose.Schema({
         ref:'candidateSch',
         default:null
     }
-    election
-
 });
 
 //export
