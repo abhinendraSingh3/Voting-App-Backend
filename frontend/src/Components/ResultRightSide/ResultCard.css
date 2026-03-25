@@ -1,0 +1,65 @@
+/* Container that holds ALL cards */
+.cardsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Individual card */
+.cardContainer {
+  background-color: #ffffff;
+  border: 1px solid #d6dde8;
+  border-radius: 10px;
+  padding: 18px 20px;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.cardContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Title */
+.electionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a3c8b;
+  margin-bottom: 8px;
+}
+
+/* Winner text */
+.winnerTitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Link styling */
+.detailsLink {
+  font-size: 14px;
+  color: #4a6cf7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.detailsLink:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Mobile tweaks */
+@media (max-width: 500px) {
+  .cardContainer {
+    padding: 15px;
+  }
+
+  .electionTitle {
+    font-size: 16px;
+  }
+
+  .winnerTitle {
+    font-size: 13px;
+  }
+}

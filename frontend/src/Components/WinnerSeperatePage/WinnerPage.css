@@ -1,0 +1,74 @@
+/* Page background */
+body {
+  margin: 0;
+  background: #f3f4f6;
+  font-family: Arial, sans-serif;
+}
+
+/* Top header box */
+.upperConti {
+  background: #eef2ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  border: 1px solid #c7d2fe;
+}
+
+/* Event name */
+.eventId {
+  margin: 0;
+  color: #1e3a8a;
+}
+
+/* Sub text */
+.eventIdName {
+  margin-top: 5px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Winner golden section */
+.winnerDiv {
+  margin: 20px;
+  height: 250px;
+
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+}
+
+/* Trophy emoji */
+.emoji {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+/* Winner name */
+.winnerName {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* Votes text */
+.votesT {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 5px 0 15px;
+}
+
+/* Winner tag */
+#winnerTage {
+  padding: 8px 18px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-weight: 600;
+}

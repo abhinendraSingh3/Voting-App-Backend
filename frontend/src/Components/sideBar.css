@@ -1,0 +1,98 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap');
+
+/* Sidebar container */
+.sideBar {
+    width: 20vw;
+    height: 100vh;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    font-family: "Karla", sans-serif;
+}
+
+/* Logo section */
+.sideBar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+/* Logo icon */
+.logo-icon {
+    font-size: 24px;
+    background: #4a90e2;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* Logo text */
+.sideBar-logo h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* Links section */
+.sideBar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+/* Each nav item */
+.sidebar-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* Icon */
+.sidebar-nav .icon {
+    font-size: 18px;
+}
+
+/* Hover effect */
+.sidebar-nav:hover {
+    background: #f0f4ff;
+    color: #4a90e2;
+}
+
+/* Active link (optional) */
+.sidebar-nav.active {
+    background: #4a90e2;
+    color: white;
+}
+
+/* ========================= */
+/* 📱 MOBILE RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    .sideBar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    .sideBar.open {
+        left: 0;
+    }
+}

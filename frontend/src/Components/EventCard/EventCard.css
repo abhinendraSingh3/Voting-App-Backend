@@ -1,0 +1,124 @@
+/* Main container (card) */
+.llow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  flex-direction: row;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+  /* spacing between cards (top & bottom) */
+  margin: 15px 0;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.llow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Left icon container */
+.badge {
+  width: 50px;
+  height: 50px;
+  background: #eef3ff;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-cardEvent {
+  width: 28px;
+  height: 28px;
+}
+
+/* Center content */
+.event-details {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.event-details h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.event-details h3 {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #666;
+}
+
+.event-details p {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* Right button container */
+.event-btn {
+  display: flex;
+  align-items: center;
+}
+
+/* Vote Now button */
+.voteNow-button {
+  background: linear-gradient(45deg, #ffb300, #ff9800);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.voteNow-button:hover {
+  opacity: 0.9;
+}
+
+/* View Result button */
+.vote-result {
+  background: #2f5bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.vote-result:hover {
+  opacity: 0.9;
+}
+
+/* Waiting text */
+.waitResult {
+  font-size: 14px;
+  color: #999;
+}
+
+/* 🔥 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .event-btn {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .event-details {
+    margin-left: 0;
+  }
+}

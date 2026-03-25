@@ -1,0 +1,62 @@
+.CompleteBigDiv {
+  padding: 20px;
+  background: #f3f4f6;
+  min-height: 75vh;
+  font-family: Arial, sans-serif;
+}
+
+.completeHeading {
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+/* Card */
+.resultBar {
+  background: #eaf1ff;
+  border: 1px solid #3b82f6;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+/* Top row */
+.resultBarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.participantName {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.participantsTotalVotes {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Grey bar */
+.progressBar {
+  width: 100%;
+  height: 40px;
+  background: #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Filled part */
+.progressFill {
+  height: 100%;
+  width: 35.9%; /* change dynamically later */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 600;
+
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+}
