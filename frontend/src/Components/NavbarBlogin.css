@@ -1,0 +1,122 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+/* Global */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Karla", sans-serif;
+}
+
+/* Navbar container */
+.navbar{
+  width:100%;
+  margin:auto;
+  /* margin-top:40px; */
+  background:linear-gradient(90deg,#0f2a5f,#1e3c8c);
+  /* border-radius:15px; */
+  padding:18px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+/* Logo / heading */
+.navbar-heading{
+  color:white;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+/* Links */
+.navbar-links{
+  display:flex;
+  margin-left: auto;
+  gap:30px;
+}
+
+.navbar-links a{
+  text-decoration:none;
+  color:white;
+  font-size:15px;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.navbar-links a:hover{
+  opacity:0.8;
+}
+
+/* Buttons container */
+.navbar-btn{
+  display:flex;
+  gap:10px;
+}
+
+/* Login button */
+.navbar-btn-login{
+  padding:7px 16px;
+  border-radius:6px;
+  border:none;
+  background:#e5e7eb;
+  color:#1e3c8c;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* Signup button */
+.navbar-btn-signup{
+  padding:7px 18px;
+  border-radius:6px;
+  border:none;
+  background:#fbbf24;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Hover effects */
+.navbar-btn-login:hover{
+  background:white;
+}
+
+.navbar-btn-signup:hover{
+  background:#f59e0b;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:900px){
+
+  .navbar{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .navbar-links{
+    gap:20px;
+  }
+
+}
+
+@media (max-width:600px){
+
+  .navbar-links{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  .navbar-btn{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .navbar-btn button{
+    width:100%;
+  }
+
+}

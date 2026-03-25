@@ -1,0 +1,96 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+/* Global */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Karla", sans-serif;
+}
+/* Main container */
+.right-conatainer {
+  position: absolute;
+  right: 30%;
+  left: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 50vw;
+  max-width: 100%;
+
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Name */
+.name h1 {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Vote tab */
+.voteHistoryTab {
+  width: 100%;
+}
+
+/* Heading */
+.heading-vote h4 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* List */
+.votes-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.votes-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+
+  border-bottom: 1px solid #eee;
+}
+
+/* Text styles */
+.club-name {
+  font-weight: 500;
+}
+
+.voteName {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* No votes */
+.no-votes {
+  text-align: center;
+  color: gray;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .right-conatainer {
+    position: static;
+    transform: none;
+    margin: 20px auto;
+    width: 90%;
+  }
+}
+.votes-list {
+  max-height: 40vh;   /* control height */
+  overflow-y: auto;    /* enable vertical scroll */
+  padding-right: 5px;
+  scrollbar-width: none;
+}
+
+/* 🔥 Hide scrollbar (Chrome, Edge, Safari) */
+.votes-list::-webkit-scrollbar {
+  display: none;
+}
