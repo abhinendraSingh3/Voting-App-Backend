@@ -1,4 +1,5 @@
-const mongoose= require('mongoose')
+const mongoose= require('mongoose');
+const electionSch=require('./electionSchema')
 
 // define candidate Schema
 const candidateSchema=new mongoose.Schema({
@@ -7,13 +8,35 @@ candidateName:{
         type:String,
         required:true,
     },
-party:{     
+manifesto:{     
     type:String,
     required:true
 
 },
-age:{
+position:{
+    type:String,
+    required:true
+},
+
+department:{
+    type:String,
+    required:true
+},
+candidateyear:{
     type:Number,
+    required:true
+},
+
+candidatemail:{
+    type:String,
+    unique:true,
+    trim:true,
+    lowercase:true
+},
+
+elections:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:electionSch,
     required:true
 },
 votes:[

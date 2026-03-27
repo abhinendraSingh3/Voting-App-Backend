@@ -1,5 +1,5 @@
 const candidateModel=require('./../models/candidate');
-const userModel=require('./../models/user');
+const studentSch=require('./../models/studentSchema');
 
 function resultEvent(socket,io){
     //io.emit means broadcast to each person
@@ -17,7 +17,7 @@ function resultEvent(socket,io){
         try{
         const {userId,candidatName,party}=data;
 
-        const user=await userModel.findOne({_id:userId})
+        const user=await studentSch.findOne({_id:userId})
         //check if user is valid or not
         if(!user){
             socket.emit('voteError',"user not found");
@@ -29,7 +29,7 @@ function resultEvent(socket,io){
             return;
         }
         //update user
-        await userModel.findOneAndUpdate({_id:userId},{isVoted:true})
+        await studentSch.findOneAndUpdate({_id:userId},{isVoted:true})
         //update candidate vote
         const updateCandidateDb=await candidateModel.findOneAndUpdate(
             {candidateName:candidatName,party:party},

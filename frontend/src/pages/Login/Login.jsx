@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useTimeOut } from 'react';
 import './Login.css'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -24,7 +24,7 @@ function Login() {
 
     }
 
-   async function handleSubmit(e) {
+    async function handleSubmit(e) {
 
         e.preventDefault();
 
@@ -38,41 +38,43 @@ function Login() {
         }
 
         setStateErr("");
-        try{
-        // const response=await axios.post('http://localhost:3000/login',{
-        //     email:data.email,
-        //     password:data.password
-        // })
+        try {
+            const response = await axios.post('http://localhost:5000/student/login',data);
 
-        // const result=response.data;
+            if (response.data.success) {
+                const result = response.data;
 
-        // //save to localStorage
-        // localStorage.setItem('isLoggedIn',true);
-        // localStorage.setItem('token',result.token);
-        // localStorage.setItem('userData',JSON.stringify(result.user))
+                //save to localStorage
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('refreshToken', result.refreshToken);
+                localStorage.setItem('userData', JSON.stringify(result.user));
 
-        // navigate('/dashboard')
+
+                setData({
+                    email: "",
+                    password: ""
+                });
+
+                setTimeout(() => {
+                    navigate('/dashboard');
+                })
+            }
 
         }
-        catch(error){
-            console.log("error occured",error);
-        
+        catch (error) {
+            console.log("error occured", error);
+
         }
 
-        if (data.email === "test@gmail.com" && data.password === "1234") {
-            navigate("/dashboard");
-            localStorage.setItem('isLoggedIn',true);
-            
-        } else {
-            setStateErr("Invalid credentials");
-        }
+        //testing credentials
+        // if (data.email === "test@gmail.com" && data.password === "1234") {
+        //     navigate("/dashboard");
+        //     localStorage.setItem('isLoggedIn',true);
 
-        setData({
-            email: "",
-            password: ""
-        });
-
-
+        // } else {
+        //     setStateErr("Invalid credentials");
+        // }
     }
     return (
         <div className="login-main">

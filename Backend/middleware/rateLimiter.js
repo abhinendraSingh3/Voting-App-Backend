@@ -9,7 +9,7 @@ const globalLimiter=rateLimiter({
 })
 
 //login limiter
-const loginLimiter=ratelimiter({
+const loginLimiter=rateLimiter({
     windowMs:1*60*60,
     max:5,
     message:"Too many attempts please try again in 1mins"
@@ -17,14 +17,14 @@ const loginLimiter=ratelimiter({
 })
 
 //registerLimiter
-const registerLimiter=ratelimiter({
+const registerLimiter=rateLimiter({
     windowMs:1*60*60,
     max:3,
     message:"Too many attempts please try again in 1mins"
 
 })
 //votelimiter
-const voteSubmitlimiter=ratelimiter({
+const voteSubmitlimiter=rateLimiter({
     windowMs:1*60*60,
     max:5,
     message:"Too many attempts please try again in 1mins",
@@ -33,7 +33,7 @@ const voteSubmitlimiter=ratelimiter({
 })
 
 //createCandidateLmiter
-const createCandidtaLimiter=ratelimiter({
+const createCandidtaLimiter=rateLimiter({
     windowMs:1*60*60,
     max:2,
     message:"Too many attempts please try again in 1mins",

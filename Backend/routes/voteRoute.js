@@ -7,13 +7,13 @@ const {voteSubmitlimiter}=require('./../middleware/rateLimiter')
 
 
 //---------------------voting------------------------------------------
-router.post('/castvote/:candidateId', jwtAuthMiddleware,voteSubmitlimiter,castevote )
+// router.post('/castvote/:candidateId', jwtAuthMiddleware,voteSubmitlimiter,castevote )
 
-//-----------------voteStatus---------------
-router.get('/status',jwtAuthMiddleware,voteStatus)
+// //-----------------voteStatus---------------
+// router.get('/status',jwtAuthMiddleware,voteStatus)
 
-//--------admin set the voting event-----
-router.post('/admin/event',jwtAuthMiddleware,authorizedRole(admin),eventCreate)
+// //--------admin set the voting event-----
+// router.post('/admin/event',jwtAuthMiddleware,authorizedRole("admin"),eventCreate)
 
 
 
