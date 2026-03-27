@@ -2,9 +2,9 @@ const express = require('express');
 const candidateSch = require('./../models/candidate')
 const router = express.Router();
 const jwtAuthMiddleware = require('./../middleware/auth.middleware')
-const userSchema = require('./../models/user');
-const user = require('./../models/user');
-const eventSch = require('../models/eventSchema')
+const userSchema = require('./../models/studentSchema');
+const user = require('./../models/studentSchema');
+const eventSch = require('../models/electionSchema')
 
 // castVote()       // user casts vote (checks isVoted first)
 // getResults()     // get full results/leaderboard

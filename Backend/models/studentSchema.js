@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema({
     department: {
         type: String,
         required: true,
-        enum:[btech,mca,mba,bca,bba],
+        enum:['btech','mca','mba','bca','bba'],
         lowercase:true
     },
     password: {
