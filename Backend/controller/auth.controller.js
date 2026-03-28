@@ -164,6 +164,6 @@ const passChange=async(req,res)=>{
     }
 }
 
-module.exports={registerUser,changePass,profileView,loginUser};
+module.exports = { registerUser, profileView, loginUser ,handleRefreshToken,passChange};
 
 
