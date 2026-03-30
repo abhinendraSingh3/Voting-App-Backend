@@ -228,6 +228,6 @@ const passChange = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, profileView, loginUser };
+module.exports = { registerUser, profileView, loginUser ,handleRefreshToken,passChange};
 
 
