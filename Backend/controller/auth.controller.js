@@ -73,20 +73,21 @@ const registerUser = async (req, res) => {
     }
 }
 
+//-----login route---------
 const loginUser = async (req, res) => {
     try {
 
         const { email, password } = req.body;
-
+        
 
         const validUser = await studentSch.findOne({ email });
+        
         if (!validUser) {
             return res.status(400).send({
                 success: false,
                 message: "Email is incorrect or user has not signed up"
             })
         }
-
         const isMatch = await bcrypt.compare(password, validUser.password)
 
         if (!isMatch) {
@@ -102,12 +103,12 @@ const loginUser = async (req, res) => {
         }
 
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: '1h'
+            expiresIn: '5m'
         });
 
         //generating refresh token if the access token is expired then we can use refresh token to generate new access token without asking user to login again
         const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN, {
-            expiresIn: '7d'
+            expiresIn: '10m'
         });
 
         //sendding refreshToken to cookies
@@ -121,8 +122,13 @@ const loginUser = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "login successful",
-            data: accessToken
+            accessToken: accessToken,
+            userData:{
+                id: validUser._id,
+                name:validUser.name
+            }
         })
+        console.log(`user ${email} logged in successfully`);
     }
     catch (error) {
         console.log("LOGIN ERROR =>", error);
@@ -133,7 +139,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-
+    
 //handle refresh token
 const handleRefreshToken = async (req, res) => {
     try {

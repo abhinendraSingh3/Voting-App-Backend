@@ -14,7 +14,7 @@ const cookieParser=require('cookie-parser');
 
 app.use(bodyparser.json()); //used for reading data from body
 app.use(cors());
-app.user(cookieParser());
+app.use(cookieParser());
 
 //http server create
 const server=http.createServer(app)

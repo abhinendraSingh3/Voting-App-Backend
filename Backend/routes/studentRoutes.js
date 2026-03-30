@@ -10,7 +10,7 @@ const {loginLimiter,registerLimiter}=require('../middleware/rateLimiter')
 router.post('/signup',registerLimiter,registerUser);
 
 //--------post route for login---------------
-router.post('/login',jwtAuthMiddleware,loginLimiter,loginUser)
+router.post('/login',loginLimiter,loginUser)
 
 //------------profile route--------------------
 router.get('/profile', jwtAuthMiddleware,profileView)
