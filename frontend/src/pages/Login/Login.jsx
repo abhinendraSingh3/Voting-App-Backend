@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useTimeOut } from 'react';
 import './Login.css'
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from './../../utils/axiosInterceptor'
 
 
 function Login() {
@@ -39,30 +39,30 @@ function Login() {
 
         setStateErr("");
         try {
-            const response = await axios.post('http://localhost:5000/student/login',data);
+            const response = await api.post('http://localhost:5000/student/login',data);
 
             if (response.data.success) {
                 const result = response.data;
 
                 //save to localStorage
                 localStorage.setItem('isLoggedIn', true);
-                localStorage.setItem('token', result.token);
-                localStorage.setItem('refreshToken', result.refreshToken);
-                localStorage.setItem('userData', JSON.stringify(result.user));
-
+                localStorage.setItem('accessToken', result.accessToken);
+                localStorage.setItem('userData', JSON.stringify(result.userData));
 
                 setData({
                     email: "",
                     password: ""
                 });
+                console.log(localStorage.getItem('userData'))
 
                 setTimeout(() => {
                     navigate('/dashboard');
-                })
+                },1000);
             }
-
+            
         }
         catch (error) {
+            setStateErr("Invalid Credentials");
             console.log("error occured", error);
 
         }

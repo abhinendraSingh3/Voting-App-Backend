@@ -1,4 +1,4 @@
-import DashBoardRight from "../Components/DashBoardRight"
+import DashBoardRight from "../Components/MyVotes/DashBoardRight"
 import Authlayout from './../Components/Authlayout'
 function Dashboard() {
     return (

@@ -1,41 +1,37 @@
 import './VotingEvents.css'
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import EventCard from '../EventCard/EventCard';
+import api from '../../utils/axiosInterceptor';
+
+
 
 function VotingEvents() {
-    const [event, setEvent] = useState([
-        //sample data later from backend
-        {
-            id: 1,
-            name: 'Student Council Election',
-            status: 'Active',
-            date: 'March 19, 2024'
-        },
-        {
-            id: 2,
-            name: 'Cultural Club Leadership Election',
-            status: 'Closed',
-            date: 'Apr 10, 2024'
-        },
-        {
-            id: 3,
-            name: 'Sports Committee Selection',
-            status: 'Active',
-            date: 'March 25, 2024'
-        },
-        {
-            id: 4,
-            name: 'Academic Council Voting',
-            status: 'Pending',
-            date: 'April 5, 2024'
-        },
-        {
-            id: 5,
-            name: 'Drama Council Voting',
-            status: 'Result Out',
-            date: 'April 5, 2024'
+    const [event, setEvent] = useState([])
+
+const accesstoken=localStorage.getItem('accessToken');
+
+    useEffect(()=>{
+        const eventsList=async()=>{
+            const response=api.get('http://localhost:5000/vote/voteevents',{
+                headers:{
+                    Authorization:`Bearer ${accesstoken}`
+                }
+            })
+            const result=response.data;
+
+            if(response.data.success){
+                setEvent([{
+                    id:result._id,
+                    eventName:result.name,
+                    eventStatus:result.status,
+                    endDate:result.enddate
+                }])
+            }
+
         }
-    ])
+
+
+    })
 
     return (
         <div className="main-body">
@@ -49,11 +45,11 @@ function VotingEvents() {
                         key={items.id}
                         eventName={items.name}
                         eventStatus={items.status}
-                        eventDate={items.date}
+                        EndDate={items.endDate}
                         />
                 ))  
                 ):(
-                    <h1> No voting even</h1>
+                    <h1> No voting event started</h1>
                  )}
             </div>
 

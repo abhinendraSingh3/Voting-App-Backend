@@ -26,7 +26,7 @@ function EventCard(props) {
             <div className="event-details">
                 <h2>{props.eventName}</h2>
                 <h3>Status: {props.eventStatus}</h3>
-                <p>Date: {props.eventDate}</p>
+                <p>End Date: {props.EndDate}</p>
             </div>
             {/* right container */}
             <div className="event-btn">

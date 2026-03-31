@@ -56,7 +56,6 @@ function App() {
           { label: 'Home', url: '/' },
           { label: 'About', url: '/about' },
           { label: 'Contact', url: '/contact' },
-          { label: 'Dashboard', url: '/dashboard' },
         ]}
         brandName={"College Voting Portal"}
       />
