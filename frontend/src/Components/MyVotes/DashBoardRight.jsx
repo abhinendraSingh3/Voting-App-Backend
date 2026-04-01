@@ -14,14 +14,14 @@ const DashBoardRight = () => {
 
             try {
                 //send api
-                const response = await api.get('http://localhost:5000/student/myvotes', {
+                const response = await api.get('http://localhost:5000/vote/myvotes', {
                     headers: {
                         Authorization: `Bearer ${accesstoken}`
                     }
                 })
                 console.log(response.data.data)
                 if (response.data.success) {
-                    const result = response.data;
+                    
                     setVoteData([{
                         id: result._id,
                         club: result.election?.name,

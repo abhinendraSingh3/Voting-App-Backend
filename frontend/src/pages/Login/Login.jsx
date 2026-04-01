@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useTimeOut } from 'react';
+import { useState} from 'react';
 import './Login.css'
 import { useNavigate } from "react-router-dom";
 import api from './../../utils/axiosInterceptor'
@@ -55,12 +55,13 @@ function Login() {
                 });
                 console.log(localStorage.getItem('userData'))
 
-                setTimeout(() => {
+                setTimeout(() => {  
                     navigate('/dashboard');
                 },1000);
             }
             
         }
+
         catch (error) {
             setStateErr("Invalid Credentials");
             console.log("error occured", error);
