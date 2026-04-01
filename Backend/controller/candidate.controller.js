@@ -173,10 +173,10 @@ const voteCount=async(req,res)=>{
         const candidate=await candidateSch.find().sort({voteCount:'desc'});
 
         //return only partyName and vote count
-        const vRecord=await candidate.map((data)=>{
+        const vRecord=await candidate.map((data)=>({
             party:data.party,
-            count=data.voteCount
-        })
+            count:data.voteCount
+        }))
         return res.status(200).json({vRecord})
 
     }

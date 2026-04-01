@@ -18,7 +18,7 @@ const studentSchema = new mongoose.Schema({
     },
       studentid: {
         type: Number,
-        require: true
+        required: true
     },
 
     department: {

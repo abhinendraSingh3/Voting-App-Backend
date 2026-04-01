@@ -12,7 +12,7 @@ const electionSchema=new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        enum:['pendig','active','closed'],
+        enum:['pending','active','closed'],
         default:'pending'
     },
     startdate:{

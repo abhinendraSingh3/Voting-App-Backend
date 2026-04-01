@@ -5,21 +5,21 @@ const voteSchema=new mongoose.Schema({
     //who vote
     voter:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:studentSch,
+        ref:'studentSch',
         required:true
     },
 
     //whom votedd
     votedfor:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:candidateSch,
+        ref:'candidateSch',
         required:true
     },
 
     //which election
     election:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:electionSch,
+        ref:'electionSch',
         required:true
     },
     //when voted,

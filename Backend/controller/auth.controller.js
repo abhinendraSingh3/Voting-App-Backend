@@ -79,7 +79,6 @@ const loginUser = async (req, res) => {
 
         const { email, password } = req.body;
         
-
         const validUser = await studentSch.findOne({ email });
         
         if (!validUser) {
@@ -125,7 +124,8 @@ const loginUser = async (req, res) => {
             accessToken: accessToken,
             userData:{
                 id: validUser._id,
-                name:validUser.name
+                name:validUser.name,
+                email:validUser.email
             }
         })
         console.log(`user ${email} logged in successfully`);
@@ -139,7 +139,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-    
+
 //handle refresh token
 const handleRefreshToken = async (req, res) => {
     try {
@@ -176,6 +176,7 @@ const handleRefreshToken = async (req, res) => {
         });
     }
 }
+
 const profileView = async (req, res) => {
 
     try {

@@ -41,9 +41,9 @@ elections:{
 },
 votes:[
     {
-        user:{
+        students:{
             type:mongoose.Schema.Types.ObjectId,//in order to obtain object ID because it's in the database and MongoDB understands database, so we do provide the location like mongoos.schema.types.objectID. then mongoose ask object id of what? then we give ref:user.S
-            ref:'User',
+            ref:'studentSch',
             required:true
         },
         votedAt:{    
