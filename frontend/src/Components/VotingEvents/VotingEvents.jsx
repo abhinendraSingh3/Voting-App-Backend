@@ -4,7 +4,6 @@ import EventCard from '../EventCard/EventCard';
 import api from '../../utils/axiosInterceptor';
 
 
-
 function VotingEvents() {
     const [event, setEvent] = useState([])
 
@@ -14,7 +13,7 @@ function VotingEvents() {
 
         const eventsList = async () => {
             try {
-                const response = await api.get('http://localhost:5000/vote/voteevents', {
+                const response = await api.get('/vote/voteevents', {
                     headers: {
                         Authorization: `Bearer ${accesstoken}`
                     }

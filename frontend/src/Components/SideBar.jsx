@@ -11,7 +11,7 @@ function SideBar() {
             {/* Navigation Links Section */}
             <div className="sideBar-links">
 
-                <Link to='/Dashboard' className="sidebar-nav">
+                <Link to='/dashboard' className="sidebar-nav">
                     <span className="icon">📶</span>
                     <span>Dashboard</span>
                 </Link>

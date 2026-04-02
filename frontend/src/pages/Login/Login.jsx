@@ -39,16 +39,19 @@ function Login() {
 
         setStateErr("");
         try {
-            const response = await api.post('http://localhost:5000/student/login',data);
+            const response = await api.post('/student/login',data);
+            console.log(response)
 
             if (response.data.success) {
                 const result = response.data;
 
                 //save to localStorage
                 localStorage.setItem('isLoggedIn', true);
-                localStorage.setItem('accessToken', result.accessToken);
+                localStorage.setItem('token', result.accessToken);
                 localStorage.setItem('userData', JSON.stringify(result.userData));
 
+                // This triggers App to re-render, the logged-in routes mount, and /dashboard becomes accessible before navigate('/dashboard') fires.
+                window.dispatchEvent(new Event('storage'))
                 setData({
                     email: "",
                     password: ""
@@ -60,7 +63,7 @@ function Login() {
                 },1000);
             }
             
-        }
+        }   
 
         catch (error) {
             setStateErr("Invalid Credentials");
