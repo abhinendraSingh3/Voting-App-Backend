@@ -6,7 +6,7 @@ WORKDIR /votingApp
 COPY package.json ./
 
 #install dependencies
-RUN npm install
+RUN npm install 
 
 #copy all files
 COPY . .
