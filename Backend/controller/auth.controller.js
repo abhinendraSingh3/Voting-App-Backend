@@ -102,7 +102,7 @@ const loginUser = async (req, res) => {
         }
 
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: '5m'
+            expiresIn: '50m'
         });
 
         //generating refresh token if the access token is expired then we can use refresh token to generate new access token without asking user to login again

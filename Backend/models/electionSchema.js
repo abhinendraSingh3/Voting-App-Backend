@@ -23,6 +23,7 @@ const electionSchema=new mongoose.Schema({
         type:Date,
     },
     createdat:{
+        
         type:Date,
         default:Date.now
     }

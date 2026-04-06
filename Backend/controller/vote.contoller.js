@@ -43,9 +43,7 @@ const voteStatus = async (req, res) => {
     try {
         
         const studentid = req.data.userId;
-        console.log("herer")
 
-        console.log(studentid);
         const studentData = await student.findById(studentid);
         
         if (!studentData) {
@@ -60,13 +58,14 @@ const voteStatus = async (req, res) => {
             {path:'election'},
         ]);
 
-        if(!voteCheck){
-            return res.status(401).json({
-                success:false,
-                message:"no votes"
-            })
-        }
+        // if(!voteCheck){
+        //     return res.status(401).json({
+        //         success:false,
+        //         message:"no votes"
+        //     })
+        // }
         // student has voted 
+
         return res.status(200).json({ success: true, data: voteCheck });
     }
     catch (error) {

@@ -12,7 +12,6 @@ const jwtAuthMiddleware=(req,res,next)=>{
 
     // the header looks like this- Authorizartion:Bearer xzvsdg2312vsxvds.... so it order to extract only token we are splitting and taking only the value present at index 1.
     const token=authHeader.split(' ')[1];
-    console.log(token)
 
     if(!token){
         return res.status(401).json({message:'unauthorised'})
