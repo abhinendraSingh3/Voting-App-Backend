@@ -20,11 +20,12 @@ function VotingEvents() {
                 })
                 const result = response.data;
                 console.log(result)
-                if (response.success) {
+                if (response.data.success) {
+                    console.log(result.data.Ar)
                     setEvent(result.data.map(events => ({
                         id: events._id,
                         eventName: events.name,
-                        eventStatus: reventsstatus,
+                        eventStatus: events.status,
                         endDate: events.enddate
                     })));
                 }
@@ -35,6 +36,7 @@ function VotingEvents() {
 
         }
         eventsList();
+        
 
 
     }, [accesstoken])
@@ -49,8 +51,8 @@ function VotingEvents() {
                     event.map((items) => (
                         <EventCard
                             key={items.id}
-                            eventName={items.name}
-                            eventStatus={items.status}
+                            eventName={items.eventName}
+                            eventStatus={items.eventStatus}
                             EndDate={items.endDate}
                         />
                     ))

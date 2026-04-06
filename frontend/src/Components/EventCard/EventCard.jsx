@@ -12,7 +12,7 @@ function EventCard(props) {
     }
 
     const handleClickResult = () => {
-        navigate('/winnerpage',{state:{eventName:props.eventName}});
+        navigate('/winnerpage', { state: { eventName: props.eventName } });
     }
     // {condition ?():condition ?:():() }
 
@@ -30,11 +30,10 @@ function EventCard(props) {
             </div>
             {/* right container */}
             <div className="event-btn">
-                {props.eventStatus == 'Active' ? (
+                {props.eventStatus == 'active' ? (
                     <button className="voteNow-button" type="button" onClick={handleClickVoteNow}>Vote Now</button>) :
-                    props.eventStatus == 'Pending' ? (<p className="waitResult">Kindly Wait for result</p>) :
-                        props.eventStatus == 'Result Out' ? (<button className="vote-result" type="button" onClick={handleClickResult}>View Result</button>) :
-                            <p className="waitResult">Kindly Wait for result</p>
+                    props.eventStatus == 'pending' ? (<p className="waitResult">Kindly Wait for result</p>) :
+                        props.eventStatus == 'closed' ? (<button className="vote-result" type="button" onClick={handleClickResult}>View Result</button>) : <p className="waitResult">Kindly Wait for result</p>
                 }
 
             </div>
