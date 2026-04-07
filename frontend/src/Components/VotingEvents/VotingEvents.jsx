@@ -37,8 +37,6 @@ function VotingEvents() {
         }
         eventsList();
         
-
-
     }, [accesstoken])
 
     return (

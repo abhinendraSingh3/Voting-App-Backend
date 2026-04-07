@@ -8,6 +8,7 @@ import Events from './pages/Events'
 import Results from './pages/Results'
 import Candidate from './pages/Candidate'
 import WinnerPage from './Components/WinnerSeperatePage/WinnerPage'
+import Logout from './pages/Logout/Logout'
 
 //navbar after login
 import NavbarAlogin from './Components/NavbarAlogin'
@@ -77,6 +78,7 @@ function App() {
             <Route path='/results' element={<Results />} />
             <Route path='/candidates' element={<Candidate />} />
             <Route path='/winnerpage' element={<WinnerPage />} />
+            <Route path='/logout' element={<Logout/>} />
           </Routes>
           <Footer />
         </>
