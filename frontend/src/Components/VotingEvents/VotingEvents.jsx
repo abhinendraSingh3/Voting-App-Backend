@@ -19,9 +19,7 @@ function VotingEvents() {
                     }
                 })
                 const result = response.data;
-                console.log(result)
                 if (response.data.success) {
-                    console.log(result.data.Ar)
                     setEvent(result.data.map(events => ({
                         id: events._id,
                         eventName: events.name,
@@ -49,6 +47,7 @@ function VotingEvents() {
                     event.map((items) => (
                         <EventCard
                             key={items.id}
+                            id={items.id}
                             eventName={items.eventName}
                             eventStatus={items.eventStatus}
                             EndDate={items.endDate}

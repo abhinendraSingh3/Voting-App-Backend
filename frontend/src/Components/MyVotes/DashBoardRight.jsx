@@ -19,7 +19,7 @@ const DashBoardRight = () => {
                         Authorization: `Bearer ${accesstoken}`
                     }
                 })
-                console.log(response);
+               
                 const result=response.data.data
                 if (response.data.success) {
                     

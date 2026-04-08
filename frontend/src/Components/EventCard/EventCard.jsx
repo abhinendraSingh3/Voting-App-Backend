@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import VotingEvents from '../VotingEvents/VotingEvents'
 import WinnerPage from '../WinnerSeperatePage/WinnerPage'
+import defaultImg from '../../assets/set-empty-papers-copy-space.jpg'
 
 function EventCard(props) {
     const navigate = useNavigate();
 
     const handleClickVoteNow = () => {
-        navigate('/candidates', { state: { eventName: props.eventName,electionId:props.key } })
+        navigate('/candidates', { state: { eventName: props.eventName,electionId:props.id } })
     }
 
     const handleClickResult = () => {
@@ -16,11 +17,11 @@ function EventCard(props) {
     }
     // {condition ?():condition ?:():() }
 
-    return (
+    return ( 
         <div className="llow">
             {/* left container */}
             <div className="badge">
-                <img src="" className="img-cardEvent" />
+                <img src={props.img || defaultImg} className="img-cardEvent" />
             </div>
             {/* center container */}
             <div className="event-details">
