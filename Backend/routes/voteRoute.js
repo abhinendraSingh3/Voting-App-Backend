@@ -15,6 +15,8 @@ router.get('/myvotes',jwtAuthMiddleware,voteStatus);
 //-------------------voting Events
 router.get('/voteevents',jwtAuthMiddleware,voteevents);
 
+router.get('/checkvote',jwtAuthMiddleware,castevote)
+
 // //--------admin set the voting event-----
 // router.post('/admin/event',jwtAuthMiddleware,authorizedRole("admin"),eventCreate)
 

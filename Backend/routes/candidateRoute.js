@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const jwtAuthMiddleware = require('./../middleware/auth.middleware')
-const authorizedRole=require('./../middleware/rbac.middleware')
 
-const {voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView} =require('./../controller/vote.contoller');
+const {voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView} =require('./../controller/candidate.controller');
 const{createCandidtaLimiter}=require('./../middleware/rateLimiter')
 
 
@@ -20,6 +19,9 @@ const{createCandidtaLimiter}=require('./../middleware/rateLimiter')
 
 // //------------voteCount-------------
 // router.get('/votecount', jwtAuthMiddleware,voteCount);
+
+//show candidates according to 
+router.get('/allcandidates/:electionId',jwtAuthMiddleware,candidateView);
 
 
 module.exports = router

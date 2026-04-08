@@ -2,20 +2,22 @@ const express = require('express');
 const candidateSch = require('./../models/candidate')
 const router = express.Router();
 const jwtAuthMiddleware = require('./../middleware/auth.middleware')
-const userSchema = require('./../models/user')
+const userSchema = require('./../models/studentSchema')
 
 // getAllCandidates()->list all candidates
 const candidateView = async (req, res) => {
     try {
-        const userId = req.data.userId;
+        const {electionId} = req.params;
+        
+        const allCandidateData = await candidateSch.find({elections:electionId}).select("-votes -voteCount")
 
-        const allCandidateData = await candidateSch.find().select("-votes -voteCount")
         if (!allCandidateData) {
             return res.status(404).json({
                 success: false,
                 message: "No candidate Found"
             })
         }
+
         return res.status(200).json({
             success: true,
             data: allCandidateData,
@@ -185,4 +187,4 @@ const voteCount=async(req,res)=>{
     }
 
 }
-module.exports={voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView};
+module.exports={voteCount,deleteCandidate,updateCandidate,addCandidate,singleCandidate,candidateView};  

@@ -3,35 +3,35 @@ const candidateSch = require('./../models/candidate')
 const studentSchema = require('./../models/studentSchema');
 const student = require('./../models/studentSchema');
 const elections = require('../models/electionSchema')
-const voteSch=require('../models/voteSchema');
+const voteSch = require('../models/voteSchema');
 
 // castVote()       // student casts vote (checks isVoted first)
 // getResults()     // get full results/leaderboard
 
 
 //-------------voting Events display-------------
-const voteevents=async(req,res)=>{
-    try{
-        
-        const events=await elections.find();
-        if(!events){
+const voteevents = async (req, res) => {
+    try {
+
+        const events = await elections.find();
+        if (!events) {
             return res.status(404).json({
-                success:false,
-                message:"No events going on"
+                success: false,
+                message: "No events going on"
             })
         }
 
         return res.status(200).json({
-            success:true,
-            data:events,
-            message:"data fetched Successfully"
+            success: true,
+            data: events,
+            message: "data fetched Successfully"
         })
 
 
-    }catch(errr){
+    } catch (errr) {
         return res.status(500).json({
-            success:false,
-            message:"Internal Server Error"
+            success: false,
+            message: "Internal Server Error"
         })
     }
 
@@ -41,11 +41,11 @@ const voteevents=async(req,res)=>{
 // getVoteStatus()- Logged in student checks their own vote status:
 const voteStatus = async (req, res) => {
     try {
-        
+
         const studentid = req.data.userId;
 
         const studentData = await student.findById(studentid);
-        
+
         if (!studentData) {
             return res.status(404).json({
                 success: false, message: 'student not found'
@@ -53,9 +53,9 @@ const voteStatus = async (req, res) => {
         }
 
         // Check if student has voted 
-        const voteCheck=await voteSch.findOne({voter:studentid}).populate([
-            {path:'votedfor'},
-            {path:'election'},
+        const voteCheck = await voteSch.findOne({ voter: studentid }).populate([
+            { path: 'votedfor' },
+            { path: 'election' },
         ]);
 
         // if(!voteCheck){
@@ -75,21 +75,21 @@ const voteStatus = async (req, res) => {
 }
 
 //-------------vote results-------------------
-const votecounts=async()=>{
-    try{
+const votecounts = async () => {
+    try {
 
         //get vote count of each candidates
-        const candidateVotes=await candidateSch.find().sort({voteCount:'desc'});
+        const candidateVotes = await candidateSch.find().sort({ voteCount: 'desc' });
 
-        if(!candidateVotes){
+        if (!candidateVotes) {
             return res.status(404).json({
-                success:false,
-                message:"No candidate found"
+                success: false,
+                message: "No candidate found"
             })
         }
-        const vrecord=await candidateVotes.map((data)=>({
-            candidateName:data.candidateName,
-            totalVotes:data.voteCount
+        const vrecord = await candidateVotes.map((data) => ({
+            candidateName: data.candidateName,
+            totalVotes: data.voteCount
         }))
 
         //compare by values whose vote count is higher that is winner
@@ -98,58 +98,63 @@ const votecounts=async()=>{
         //return the value of these three
 
     }
-    catch(error){
+    catch (error) {
         return res.status(500).json({
-            success:false,
-            message:"Internal Server Error"
+            success: false,
+            message: "Internal Server Error"
         })
     }
 }
-
 //-----casteVote-------------------------
 const castevote = async (req, res) => {
     //no admin can vote
     //only student can vote only once
     try {
-        const studentid = req.data.studentid; //extract studentI from authmiddleware 
-
-        const { candidateName, party } = req.body;
-        if (!candidateName || !party) {
-            return res.status(404).json({ success: false, message: "kindly fill candidateName and party name to vote" })
-        }
+        const studentid = req.data.userId; //extract studentId from authmiddleware 
+        const { candidateid, electionid } = req.body;
 
         //find the candidate document with specific candidateid
-        const candidateF = await candidateSch.findOne({ candidateName: candidateName, party: party })
+        const alreadyVoted = await voteSch.findOne({ voter: studentid, election: electionid });
 
-        if (!candidateF) {
-            return res.status(401).json({ message: "cannot find the candidate" })
+        if (alreadyVoted) {
+            return res.status(400).json({
+                success: false,
+                hasVoted: true,
+                message: "you have already voted"
+            })
         }
 
-        const studentF = await studentSchema.findById(studentid);
-        if (studentF.role == "admin") {
-            return res.status(401).json({ message: "admins cannot vote " })
-        }
-        if (studentF.isVoted) {
-            return res.status(401).json({ message: "You have already voted" })
-        }
-
-        //update the candidate voteList
-        candidateF.votes.push({
-            student: studentid
+        //save votes in voteSchema
+        const newVote = new voteSch({
+            voter: studentid,
+            votedfor: candidateid,
+            election: electionid
         })
 
-        candidateF.voteCount++;
-        await candidateF.save()
+        await newVote.save();
 
-        //update the student Document
-        studentF.isVoted = true;
-        await studentF.save();
+        //update in candidateSchema
+        const resp = await candidateSch.findByIdAndUpdate(candidateid, {
+            $inc: { voteCount: 1 }
+        })
+        console.log("it is under votecontroller-castvotes-->", resp);
 
-        return res.status(200).json({ success: true, message: "Vote added successfully" })
+        return res.status(200).json({
+            success: true,
+            hasVoted: false,
+            message: "Vote cast successfully"
+        })
 
     }
     catch (error) {
-
+        // handle duplicate vote error from compound index
+        if (error.code === 11000) {
+            return res.status(400).json({
+                success: false,
+                hasVoted: true,
+                message: "You have already voted!"
+            });
+        }
         return res.status(500).json({ message: "Internal server error" })
     }
 }
@@ -179,7 +184,7 @@ const castevote = async (req, res) => {
 //             endTime: endDate,
 //             votingEnabled: votingEnabled
 //         });
-        
+
 
 //         return res.status(200).json({ success: true, message: "Event saved successfully",event:eventCreationDB })
 
@@ -194,6 +199,6 @@ const castevote = async (req, res) => {
 //     }
 // }
 
-module.exports = { castevote, voteStatus,voteevents }
+module.exports = { castevote, voteStatus, voteevents }
 
 

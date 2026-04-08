@@ -10,6 +10,7 @@ const studentRoutes = require('./routes/studentRoutes');
 const candidateRoutes = require('./routes/candidateRoute');
 const voteRoutes = require('./routes/voteRoute');
 const cookieParser=require('cookie-parser');
+const votingEvent =require('./routes/candidateRoute');
 
 
 app.use(bodyparser.json()); //used for reading data from body
@@ -38,6 +39,7 @@ app.get('/',(req,res)=>{
 app.use('/student', studentRoutes);
 app.use('/candidate', candidateRoutes);
 app.use('/vote', voteRoutes);
+app.use('/votingEvents',votingEvent)
 
 //use for publishing port
 server.listen(PORT ,()=>{
