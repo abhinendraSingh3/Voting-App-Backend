@@ -9,11 +9,41 @@ function CandidatesContainer() {
   const accesstoken = localStorage.getItem('token');
   const location = useLocation();
   // const eventName=location.state?.eventName;
-  const { eventName, electionId } = location.state || {};
 
+  const { eventName, electionId } = location.state || {};
 
   const [candidate, setCandidate] = useState([])
 
+  const [hasVoted, setHasVoted] = useState(false);
+
+  //api.get for checking if the user has voted or not when canddidateCard loads
+  useEffect(() => {
+    const voteC = async () => {
+      try {
+
+        const response = await api.get('/vote/checkvote', {
+          headers: {
+            Authorization: `Bearer ${accesstoken}`
+          },
+          params: { electionid: electionId }
+        })
+
+        const result = response.data;
+
+        setHasVoted(result.hasVoted);
+
+
+      }
+      catch (error) {
+        console.log("error occured at candidateContainer in useEffect==>", error);
+      }
+
+    }
+    voteC();
+
+  }, [accesstoken, electionId])
+
+  //extracting candidates data
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
@@ -25,12 +55,10 @@ function CandidatesContainer() {
 
         const result = response.data;
 
-
-
         if (result.success) {
           const candiData = result.data;
 
-          setCandidate(candiData.map((item)=>({
+          setCandidate(candiData.map((item) => ({
             id: item._id,
             name: item.candidateName,
             manifesto: item.manifesto,
@@ -67,7 +95,7 @@ function CandidatesContainer() {
         <div className="candidate-card">
           {candidate.map((person) => (
             <CandidateCard
-              electionId={person.electionId}
+              electionId={electionId}
               candidateId={person.id}
               key={person.id}
               pImg={person.image}
@@ -77,6 +105,7 @@ function CandidatesContainer() {
               pDepartment={person.department}
               pYear={person.year}
               pContact={person.contact}
+              hasVoted={hasVoted}
             />
           ))}
         </div>

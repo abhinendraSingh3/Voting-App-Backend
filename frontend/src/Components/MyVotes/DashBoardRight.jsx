@@ -21,8 +21,8 @@ const DashBoardRight = () => {
                 })
                
                 const result=response.data.data
+                
                 if (response.data.success) {
-                    
                     setVoteData([{
                         id: result._id,
                         club: result.election?.name,

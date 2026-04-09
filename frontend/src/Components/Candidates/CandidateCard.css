@@ -20,6 +20,12 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
+.vote-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: grey;
+}
+
 /* Image container */
 .candi-image {
   width: 90px;
