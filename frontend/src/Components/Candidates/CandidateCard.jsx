@@ -1,18 +1,42 @@
 import CandidatesContainer from "./CandidatesContainer";
 import './CandidateCard.css'
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import api from "../../utils/axiosInterceptor";
 
 
 function CandidateCard(props) {
     const accesstoken = localStorage.getItem('token');
 
-    const handleVote = () => {
-        //candidateid
-        //electionId
-        //they are being send in req body
+
+    const handleVote = async () => {
+        try {
+
+            const res = await api.post('/vote/casteVote', 
+                {
+                candidateid: props.candidateId,
+                electionid: props.electionId
+                },{
+                headers: {
+                    Authorization: `Bearer ${accesstoken}`
+                }}
+            )
+            if (res.data.success) {
+                console.log(res.data.hasVoted)
+                setHasVoted(res.data.hasVoted)
+                
+
+            }
+
+        }
+        catch (error) {
+            console.log("error occured at candidateCard fetch-----> ", error);
+        }
 
     }
+
+    useEffect(()=>{
+
+    })
 
     return (
         <div className="candidateMain">
