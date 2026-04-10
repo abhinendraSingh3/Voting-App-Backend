@@ -105,24 +105,61 @@ const votecounts = async () => {
         })
     }
 }
+
+//-------checkVote-------------
+const checkVote = async (req, res) => {
+    try {
+        
+        const studentid = req.data.userId; //extract studentId from authmiddleware c
+        
+        
+        const electionid = req.query.electionid;
+       
+        
+        //find the candidate document with specific candidateid
+        const alreadyVoted = await voteSch.findOne({ voter: studentid, election: electionid });
+
+        if (alreadyVoted) {
+            return res.status(200).json({
+                success: true,
+                hasVoted: true,
+                message: "you have already voted"
+            })
+            
+        }
+        return res.status(200).json({
+            success:true,
+            hasVoted:false,
+            message:"you have not voted"
+        })
+
+    }
+    catch (error) {
+
+        if (error.code === 11000) {
+            return res.status(400).json({
+                success: false,
+                hasVoted: true,
+                message: "You have already voted!"
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+
+        })
+    }
+}
+
 //-----casteVote-------------------------
 const castevote = async (req, res) => {
     //no admin can vote
     //only student can vote only once
     try {
+        
         const studentid = req.data.userId; //extract studentId from authmiddleware 
         const { candidateid, electionid } = req.body;
-
-        //find the candidate document with specific candidateid
-        const alreadyVoted = await voteSch.findOne({ voter: studentid, election: electionid });
-
-        if (alreadyVoted) {
-            return res.status(400).json({
-                success: false,
-                hasVoted: true,
-                message: "you have already voted"
-            })
-        }
 
         //save votes in voteSchema
         const newVote = new voteSch({
@@ -141,20 +178,13 @@ const castevote = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            hasVoted: false,
+            hasVoted: true,
             message: "Vote cast successfully"
         })
 
     }
     catch (error) {
         // handle duplicate vote error from compound index
-        if (error.code === 11000) {
-            return res.status(400).json({
-                success: false,
-                hasVoted: true,
-                message: "You have already voted!"
-            });
-        }
         return res.status(500).json({ message: "Internal server error" })
     }
 }
@@ -199,6 +229,6 @@ const castevote = async (req, res) => {
 //     }
 // }
 
-module.exports = { castevote, voteStatus, voteevents }
+module.exports = { castevote, voteStatus, voteevents,checkVote }
 
 

@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router();
 const jwtAuthMiddleware = require('./../middleware/auth.middleware')
 const authorizedRole=require('./../middleware/rbac.middleware')
-const {voteStatus,castevote,eventCreate,voteevents}=require('./../controller/vote.contoller');
+const {voteStatus,castevote,eventCreate,voteevents,checkVote}=require('./../controller/vote.contoller');
 const {voteSubmitlimiter}=require('./../middleware/rateLimiter')
 
 
@@ -12,10 +12,14 @@ const {voteSubmitlimiter}=require('./../middleware/rateLimiter')
 // //-----------------voteStatus---------------
 router.get('/myvotes',jwtAuthMiddleware,voteStatus);
 
-//-------------------voting Events
+//-------------------voting Events---------------
 router.get('/voteevents',jwtAuthMiddleware,voteevents);
 
-router.get('/checkvote',jwtAuthMiddleware,castevote)
+//-------------voteCheck---------------------
+router.get('/checkvote',jwtAuthMiddleware,checkVote)
+
+//-----------------castingVote-------------------
+router.post('/casteVote',jwtAuthMiddleware,castevote)
 
 // //--------admin set the voting event-----
 // router.post('/admin/event',jwtAuthMiddleware,authorizedRole("admin"),eventCreate)
