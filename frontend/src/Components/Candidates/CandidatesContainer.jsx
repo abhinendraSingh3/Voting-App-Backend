@@ -16,6 +16,10 @@ function CandidatesContainer() {
 
   const [hasVoted, setHasVoted] = useState(false);
 
+  const handleVoteSuccess = () => {
+    setHasVoted(true);
+  };
+
   //api.get for checking if the user has voted or not when canddidateCard loads
   useEffect(() => {
     const voteC = async () => {
@@ -95,6 +99,7 @@ function CandidatesContainer() {
         <div className="candidate-card">
           {candidate.map((person) => (
             <CandidateCard
+            onVote={handleVoteSuccess}
               electionId={electionId}
               candidateId={person.id}
               key={person.id}

@@ -21,8 +21,7 @@ function CandidateCard(props) {
                 }}
             )
             if (res.data.success) {
-                console.log(res.data.hasVoted)
-                setHasVoted(res.data.hasVoted)
+                props.onVote();
                 
 
             }
