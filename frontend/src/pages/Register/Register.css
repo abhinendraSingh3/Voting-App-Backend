@@ -1,0 +1,176 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap');
+
+/* Global */
+body {
+    margin: 0;
+    padding: 0;
+    font-family:"Karla",sans-serif;
+    background: #f5f7fb;
+}
+
+/* Right side container */
+.register-container {
+    flex: 1;
+    background: linear-gradient(to right, #eef2f7, #f8f9fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Form box */
+.register-form {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.register-form h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+/* Inputs */
+.register-form input,
+.register-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    transition: 0.2s;
+}
+
+/* Placeholder */
+.register-form input::placeholder {
+    color: #a0a4ab;
+    font-size: 13px;
+}
+
+/* Focus effect */
+.register-form input:focus,
+.register-form select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* Row (2 inputs side by side) */
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row input,
+.row select {
+    flex: 1;
+}
+
+/* Button */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #f7b733, #fc4a1a);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+.register-btn:hover {
+    opacity: 0.9;
+}
+
+/* Error message */
+.error {
+    color:green;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.success {
+    color: rgb(229, 255, 0);
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* Login text */
+.login-text {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-text a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+/* ========================= */
+/* 📱 MOBILE RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    .register-container {
+        padding: 20px;
+    }
+
+    .register-form {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .register-form h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .register-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* ========================= */
+/* 📲 TABLET */
+/* ========================= */
+
+@media (max-width: 900px) {
+
+    .register-form {
+        max-width: 90%;
+    }
+
+    .row {
+        gap: 8px;
+    }
+}
+
+/* ========================= */
+/* 💻 LARGE SCREENS */
+/* ========================= */
+
+@media (min-width: 1200px) {
+
+    .register-form {
+        max-width: 550px;
+    }
+}

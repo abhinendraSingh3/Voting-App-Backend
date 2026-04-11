@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap');
+
+.home-main{
+    width:100%;
+    height:555px;
+
+    background-image:url("./../assets/set-empty-papers-copy-space.jpg");  /* your hero image */
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+
+    padding-left:70px;
+
+    font-family:"Karla",sans-serif;
+}
+
+/* text container */
+.home-content{
+    max-width:520px;
+}
+
+/* main heading */
+.home-content h1{
+    font-size:48px;
+    font-weight:800;
+    color:#1e3a8a;
+    line-height:1.2;
+}
+
+/* sub heading */
+.sub-heading{
+    margin-top:15px;
+    font-size:18px;
+    color:#4b5563;
+}
+
+/* buttons */
+.home-buttons{
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+}
+
+/* register button */
+.btn-register{
+    background:#fbbf24;
+    border:none;
+    padding:12px 28px;
+    border-radius:8px;
+
+    font-size:16px;
+    font-weight:700;
+    color:white;
+
+    cursor:pointer;
+}
+
+/* login button */
+.btn-login{
+    background:#1e3a8a;
+    border:none;
+    padding:12px 28px;
+    border-radius:8px;
+
+    font-size:16px;
+    font-weight:700;
+    color:white;
+
+    cursor:pointer;
+}
+
+/* hover */
+.btn-register:hover{
+    background:#f59e0b;
+}
+
+.btn-login:hover{
+    background:#1d4ed8;
+}
+
+
+/* ---------- responsive ---------- */
+
+@media (max-width:900px){
+
+.home-main{
+    height:auto;
+    padding:60px 30px;
+}
+
+.home-content h1{
+    font-size:34px;
+}
+
+.sub-heading{
+    font-size:16px;
+}
+
+}
+
+@media (max-width:600px){
+
+.home-content h1{
+    font-size:26px;
+}
+
+.home-buttons{
+    flex-direction:column;
+    width:200px;
+}
+
+}

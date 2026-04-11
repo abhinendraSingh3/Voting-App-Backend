@@ -1,0 +1,107 @@
+/* ===== Reset & Base ===== */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eef2f7;
+}
+
+/* ===== Page Layout ===== */
+.pageLayout {
+  display: flex;
+    flex-direction: column;
+  height: 100vh;            /* Fix page height */
+  overflow: hidden;         /* Prevent page scroll */
+  padding: 20px;
+  box-sizing: border-box;
+}
+.pageLayout h1{
+    margin-bottom: 1%;
+}
+/* ===== Container (Scrollable Area) ===== */
+.resultContainer {
+  width: 100%;
+  
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  height: 100%;             /* Fill parent */
+  overflow-y: auto;         /* Scroll only here */
+  padding-right: 6px;
+}
+
+/* Hide scrollbar (Chrome, Safari) */
+.resultContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar (Firefox + Edge) */
+.resultContainer {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+/* Hover effect */
+.cardContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ===== Text Styling ===== */
+.electionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a3c8b;
+  margin-bottom: 6px;
+}
+
+.winnerTitle {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* ===== Link ===== */
+.detailsLink {
+  font-size: 14px;
+  color: #4a6cf7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.detailsLink:hover {
+  text-decoration: underline;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 900px) {
+  .resultContainer {
+    width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .pageLayout {
+    justify-content: center;   /* Center on mobile */
+    padding: 10px;
+  }
+
+  .resultContainer {
+    width: 100%;
+  }
+
+  .cardContainer {
+    padding: 15px;
+  }
+
+  .electionTitle {
+    font-size: 16px;
+  }
+
+  .winnerTitle {
+    font-size: 13px;
+  }
+}
