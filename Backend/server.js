@@ -10,11 +10,6 @@ const studentRoutes = require('./routes/studentRoutes');
 const candidateRoutes = require('./routes/candidateRoute');
 const voteRoutes = require('./routes/voteRoute');
 const cookieParser=require('cookie-parser');
-<<<<<<< HEAD
-=======
-const votingEvent =require('./routes/candidateRoute');
-
->>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 
 app.use(bodyparser.json()); //used for reading data from body
 app.use(cors());
@@ -42,12 +37,8 @@ app.get('/',(req,res)=>{
 app.use('/student', studentRoutes);
 app.use('/candidate', candidateRoutes);
 app.use('/vote', voteRoutes);
-<<<<<<< HEAD
 app.use('/votingEvents',candidateRoutes)
 app.use('/result',voteRoutes)
-=======
-app.use('/votingEvents',votingEvent)
->>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 
 //use for publishing port
 server.listen(PORT ,()=>{
