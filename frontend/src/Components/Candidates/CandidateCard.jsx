@@ -54,7 +54,11 @@ function CandidateCard(props) {
             </div>
             {/* bottom */}
             {props.hasVoted ? (
+<<<<<<< HEAD
                 <p className="already-voted">Your vote has been submitted successfully</p>
+=======
+                <p className="already-voted">You have already voted in this event</p>
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
             ) : (
                 <button className="vote-btn" onClick={handleVote}>Vote</button>
             )}

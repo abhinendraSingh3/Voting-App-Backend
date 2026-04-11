@@ -36,7 +36,11 @@ candidatemail:{
 
 elections:{
     type:mongoose.Schema.Types.ObjectId,
+<<<<<<< HEAD
     ref:'electionSch',
+=======
+    ref:electionSch,
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
     required:true
 },
 votes:[
@@ -48,7 +52,11 @@ votes:[
         },
         votedAt:{    
             type:Date,     
+<<<<<<< HEAD
             default:Date.now
+=======
+            default:Date.now()
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
         }
     }
 ],

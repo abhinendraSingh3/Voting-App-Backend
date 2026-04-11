@@ -8,6 +8,7 @@ const voteSch = require('../models/voteSchema');
 // castVote()       // student casts vote (checks isVoted first)
 // getResults()     // get full results/leaderboard
 
+<<<<<<< HEAD
 //-------------viewResult-----------
 const voteResult = async (req, res) => {
     try {
@@ -71,6 +72,8 @@ catch(error){
     })
 }
 }
+=======
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 
 //-------------voting Events display-------------
 const voteevents = async (req, res) => {
@@ -172,6 +175,7 @@ const votecounts = async () => {
 //-------checkVote-------------
 const checkVote = async (req, res) => {
     try {
+<<<<<<< HEAD
 
         const studentid = req.data.userId; //extract studentId from authmiddleware c
 
@@ -179,6 +183,15 @@ const checkVote = async (req, res) => {
         const electionid = req.query.electionid;
 
 
+=======
+        
+        const studentid = req.data.userId; //extract studentId from authmiddleware c
+        
+        
+        const electionid = req.query.electionid;
+       
+        
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
         //find the candidate document with specific candidateid
         const alreadyVoted = await voteSch.findOne({ voter: studentid, election: electionid });
 
@@ -188,12 +201,21 @@ const checkVote = async (req, res) => {
                 hasVoted: true,
                 message: "you have already voted"
             })
+<<<<<<< HEAD
 
         }
         return res.status(200).json({
             success: true,
             hasVoted: false,
             message: "you have not voted"
+=======
+            
+        }
+        return res.status(200).json({
+            success:true,
+            hasVoted:false,
+            message:"you have not voted"
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
         })
 
     }
@@ -220,7 +242,11 @@ const castevote = async (req, res) => {
     //no admin can vote
     //only student can vote only once
     try {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
         const studentid = req.data.userId; //extract studentId from authmiddleware 
         const { candidateid, electionid } = req.body;
 
@@ -292,6 +318,10 @@ const castevote = async (req, res) => {
 //     }
 // }
 
+<<<<<<< HEAD
 module.exports = { castevote, voteStatus, voteevents, checkVote, voteResult,winner }
+=======
+module.exports = { castevote, voteStatus, voteevents,checkVote }
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 
 

@@ -1,4 +1,8 @@
 //this schema defines the title of the event happening,the start time and the end time and is voting active?
+<<<<<<< HEAD
+=======
+
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 const mongoose=require('mongoose')
 const { schema } = require('./candidate')
 
@@ -22,6 +26,10 @@ const electionSchema=new mongoose.Schema({
         type:Date,
     },
     createdat:{
+<<<<<<< HEAD
+=======
+        
+>>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
         type:Date,
         default:Date.now
     }
