@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import AuthLayout from "../../Components/Authlayout/Authlayout";
-=======
-import AuthLayout from "../../Components/Authlayout";
->>>>>>> b7303b3509789b5b10b88e70611d3bb3e4c60368
 import Login from "../Login/Login";
 import Home from "../Home";
 import { useEffect } from "react";
