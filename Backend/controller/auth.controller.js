@@ -102,19 +102,21 @@ const loginUser = async (req, res) => {
         }
 
         const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: '50m'
+            expiresIn: '15m'
         });
 
         //generating refresh token if the access token is expired then we can use refresh token to generate new access token without asking user to login again
         const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN, {
-            expiresIn: '10m'
+            expiresIn: '7d'
         });
 
         //sendding refreshToken to cookies
         res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "Strict",
+            httpOnly: true, //secure: true  → cookie only sent over HTTPS
+                            //secure: false → cookie sent over HTTP too
+            secure: false,
+            sameSite: "lax",//lax: relaxed, same domain different ports ok
+            domain:'localhost',
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
         //login success
@@ -145,6 +147,7 @@ const handleRefreshToken = async (req, res) => {
     try {
         // get refresh token from cookie
         const refreshToken = req.cookies.refreshToken;
+        console.log("no refresh")
 
         if (!refreshToken) {
             return res.status(401).json({
@@ -156,12 +159,12 @@ const handleRefreshToken = async (req, res) => {
         // verify refresh token
         const decoded = jwt.verify(
             refreshToken,
-            process.env.REFRESH_SECRET
+            process.env.REFRESH_TOKEN
         );
 
         // generate new access token
         const newAccessToken = jwt.sign(
-            { id: decoded.id },
+            { userId: decoded.userId },
             process.env.JWT_SECRET,
             { expiresIn: "15m" }
         );

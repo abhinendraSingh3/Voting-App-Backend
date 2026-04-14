@@ -47,7 +47,7 @@ function VotingEvents() {
                     event.map((items) => (
                         <EventCard
                             key={items.id}
-                            id={items.id}
+                            eventId={items.id}
                             eventName={items.eventName}
                             eventStatus={items.eventStatus}
                             EndDate={items.endDate}

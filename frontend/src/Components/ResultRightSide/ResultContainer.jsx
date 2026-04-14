@@ -20,7 +20,7 @@ function ResultContainer() {
         })
 
         const result = res.data;
-        console.log(result)
+        // console.log(result)
         if (result.success) {
 
           const retriveInfo=result.data;

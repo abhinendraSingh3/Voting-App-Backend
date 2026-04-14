@@ -7,9 +7,12 @@ import api from './../../utils/axiosInterceptor'
 const WinnerPage = () => {
     const location = useLocation();
     const eventName = location.state?.eventName;
+    
     const electionId = location.state?.eventId;
+    // console.log("eventId in winnerPage---> ",electionId)
 
     const [winnerData, setWinnerData] = useState([]);
+    const [candidateData,setCandidateData]=useState([]);
 
     const accessToken = localStorage.getItem('token');
 
@@ -24,12 +27,19 @@ const WinnerPage = () => {
                 }
             })
             const result = (await res).data;
-            console.log(result);
+            // console.log(result);
+            if(result.success){
+                setWinnerData({
+                    winnerName:result.winName,
+                    winnerVoteCount:result.winnerVoteCount
+                })
+                setCandidateData(result.data) //store all candidateData
+            }
 
 
         }
         funcCall();
-    }, [eventName])
+    }, [electionId])
 
     return (
         <>
@@ -39,11 +49,12 @@ const WinnerPage = () => {
             </div>
             <div className="winnerDiv">
                 <h1 className="emoji" >🥇</h1>
-                <h1 className="winnerName">winnerName</h1>
-                <h2 className="votesT">totalVotes</h2>
+                <h1 className="winnerName">{winnerData.winnerName}</h1>
+                <h2 className="votesT">Total Votes; {winnerData.winnerVoteCount}</h2>
                 <p id="winnerTage">Winner</p>
             </div>
-            <CompleteResult />
+            <CompleteResult 
+            candidateResult={candidateData}/>
         </>
     )
 }

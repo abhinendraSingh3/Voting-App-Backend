@@ -1,16 +1,25 @@
 
 import WinnerPage from "./WinnerPage";
 import './CompleteResult.css'
-function CompleteResult(){
-    
-    return(
+function CompleteResult(props) {
+    return (
         <div className="CompleteBigDiv">
             <h2 className="completeHeading">Complete Results</h2>
 
-            <div className="resultBar">
-                <h3 className="participantName">participantName</h3>
-                <h3 className="participantsTotalVotes">Total Votes : 1234</h3>
-            </div>
+            {props.candidateResult.map((items, index) => {
+                // <div key={index}>
+                return(
+                <div className="resultBar" key={index}>
+
+                    <h3 className="participantName">{items.name}</h3>
+                    <h3 className="participantsTotalVotes">Total Votes : {items.votes}</h3>
+                </div>
+                )
+
+                {/* </div> */ }
+            })}
+
+
 
         </div>
     )

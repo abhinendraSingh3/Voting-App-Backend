@@ -46,8 +46,8 @@ function NavbarAlogin(props) {
             {/* right side */}
             <div className="navProfile-container">
                 <div className="profile" onClick={() => setOpen(!open)}>
-                    {/* <img src="" alt="" className="profilePic" ref={myRef}>
-                    </img> */}
+                    <img src="" alt="" className="profilePic" ref={myRef}>
+                    </img>
                 </div>
                 {/* true && <div>Dropdown</div>
                 "If open is true → show this" */}
@@ -57,7 +57,9 @@ function NavbarAlogin(props) {
                         <div className="dropdown-item">Change Password</div>
                         <div className="dropdown-item">Settings & Privacy</div>
                         <div className="dropdown-item">Help & Support</div>
-                        <div className="dropdown-item logout">Logout</div>
+                        <div className="dropdown-item logout">
+                            <Link to="/Logout">Logout</Link>
+                        </div>
                     </div>
                 )}
             </div>

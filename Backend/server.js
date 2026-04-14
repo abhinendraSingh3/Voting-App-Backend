@@ -12,7 +12,10 @@ const voteRoutes = require('./routes/voteRoute');
 const cookieParser=require('cookie-parser');
 
 app.use(bodyparser.json()); //used for reading data from body
-app.use(cors());
+app.use(cors({
+    origin:'http://localhost:5173', //this is the origin url from where we are recieving/sending all the requests
+    credentials:true //we have set it true because we are sending cookies data from frontEnd
+}));
 app.use(cookieParser());
 
 //http server create

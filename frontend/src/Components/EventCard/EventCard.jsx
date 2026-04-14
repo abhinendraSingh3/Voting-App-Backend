@@ -13,7 +13,7 @@ function EventCard(props) {
     }
 
     const handleClickResult = () => {
-        navigate('/winnerpage', { state: { eventName: props.eventName } });
+        navigate('/winnerpage', { state: { eventName: props.eventName,eventId:props.eventId } });
     }
     // {condition ?():condition ?:():() }
 

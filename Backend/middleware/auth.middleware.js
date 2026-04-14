@@ -4,6 +4,7 @@ const jwt=require('jsonwebtoken');
 const jwtAuthMiddleware=(req,res,next)=>{
     
     const authHeader=req.headers.authorization;
+    
 
     
     if(!authHeader){
@@ -16,15 +17,18 @@ const jwtAuthMiddleware=(req,res,next)=>{
     if(!token){
         return res.status(401).json({message:'unauthorised'})
     }
+    
+    
     try{
         
         const decoded=jwt.verify(token,process.env.JWT_SECRET);// verify if the token is valid or not
+      
         
         req.data=decoded;// attach user data
         next();//go to next
     }
     catch(error){
-        res.status(501).json({message:"Invalid token"})
+        res.status(401).json({message:"Invalid token"})
     }
 };
 

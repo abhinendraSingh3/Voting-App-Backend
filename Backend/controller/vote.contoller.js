@@ -45,7 +45,6 @@ try{
     
     //winner
     const winnerOne=await candidateSch.find({elections:electionId}).sort({voteCount:-1})
-    console.log(winnerOne)
     const winnerDetails=winnerOne[0];
 
     //allcandidates
