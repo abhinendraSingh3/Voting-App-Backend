@@ -44,7 +44,7 @@ function App() {
               { label: 'About', url: '/about' },
               { label: 'Contact', url: '/contact' },
             ]}
-            brandName={"College Voting Portal"}
+            brandName={"College Voting Porta"}
           />
 
           <Routes>

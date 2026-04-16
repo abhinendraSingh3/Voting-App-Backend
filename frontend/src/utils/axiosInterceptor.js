@@ -31,21 +31,7 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             
-            
-
             try {
-                //---this is if we are using extracting refresh token from localStorage.--------
-                // const refreshToken = localStorage.getItem('refreshToken');
-                // // console.log('refresh->',refreshToken);
-
-                // // f there's no refresh token at all (localStorage is empty / user never logged in properly), immediately throw an error and jump to the catch block. No point calling the API.
-                // if (!refreshToken) throw new Error('No refresh token found');
-
-                // const response = await axios.post(
-                //     'http://localhost:5000/student/refreshtoken',
-                //     { refreshToken }
-                // );
-                
                 const response=await axios.post(
                     'http://localhost:5000/student/refreshtoken',{},
                     {withCredentials:true} //<----- this tells axios to send cookies
