@@ -27,9 +27,14 @@ function App() {
 
   // Add this so other components can trigger a re-render:
   useEffect(() => {
-    const handleStorage = () => setIsLoggedInUser(localStorage.getItem('isLoggedIn'));
+    const handleStorage = () => {setIsLoggedInUser(localStorage.getItem('isLoggedIn'));}
+
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('localStorageChange', handleStorage);  //this we are adding from logout page because if user click logout then a event is dispatched that we have to add event about localStorageChange
+
+    return () => {window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('locaLStorageChange',handleStorage)
+    }
   }, []);
 
 

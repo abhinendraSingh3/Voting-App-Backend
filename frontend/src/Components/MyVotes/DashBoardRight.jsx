@@ -7,7 +7,9 @@ const DashBoardRight = () => {
     let accesstoken = localStorage.getItem('accessToken')
 
 
-    const [voteData, setVoteData] = useState([]);
+    const [voteData, setVoteData] = useState([
+
+    ]);
 
     useEffect(() => {
         const fetchVotes = async () => {
@@ -20,14 +22,20 @@ const DashBoardRight = () => {
                     }
                 })
                
-                const result=response.data.data
+                const result=response.data.data;
+
                 
                 if (response.data.success) {
-                    setVoteData([{
-                        id: result._id,
-                        club: result.election?.name,
-                        votedFor: result.votedfor?.candidateName
-                    }]);
+                    setVoteData(result.map((items)=>({
+                        id:items._id,
+                        club:items.election?.name,
+                        votedFor:items.votedfor?.candidateName
+                    })))
+                    // setVoteData([{
+                    //     id: result._id,
+                    //     club: result.election?.name,
+                    //     votedFor: result.votedfor?.candidateName
+                    // }]);
 
                 }
 

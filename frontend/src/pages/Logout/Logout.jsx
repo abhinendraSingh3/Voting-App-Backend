@@ -9,6 +9,7 @@ function Logout() {
         console.log("reached here")
         useEffect(() => {
             localStorage.clear();
+            window.dispatchEvent(new Event('localStorageChange'));
             setTimeout(() => {
                 navigate('/Login')
             }, 1000)

@@ -22,7 +22,7 @@ const jwtAuthMiddleware=(req,res,next)=>{
     try{
         
         const decoded=jwt.verify(token,process.env.JWT_SECRET);// verify if the token is valid or not
-      
+        
         
         req.data=decoded;// attach user data
         next();//go to next

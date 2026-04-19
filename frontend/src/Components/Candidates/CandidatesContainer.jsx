@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CandidateCard from "./CandidateCard";
 import './CandidatesContainer.css'
-import EventCard from "../EventCard/EventCard";
 import { useLocation } from "react-router-dom";
 import api from '../../utils/axiosInterceptor';
 

@@ -1,10 +1,11 @@
 import "./NavbarAlogin.css"
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NavbarAlogin(props) {
 
-
+    const navigate=useNavigate();
 
     const [open, setOpen] = useState(false);
 
@@ -57,13 +58,10 @@ function NavbarAlogin(props) {
                         <div className="dropdown-item">Change Password</div>
                         <div className="dropdown-item">Settings & Privacy</div>
                         <div className="dropdown-item">Help & Support</div>
-                        <div className="dropdown-item logout">
-                            <Link to="/Logout">Logout</Link>
-                        </div>
+                        <div className="dropdown-item logout" onClick={()=>{navigate('/logout')}}>Logout</div>
                     </div>
                 )}
             </div>
-
         </nav >
     );
 }

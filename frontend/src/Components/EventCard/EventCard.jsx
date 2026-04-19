@@ -9,7 +9,7 @@ function EventCard(props) {
     const navigate = useNavigate();
 
     const handleClickVoteNow = () => {
-        navigate('/candidates', { state: { eventName: props.eventName,electionId:props.id } })
+        navigate('/candidates', { state: { eventName: props.eventName,electionId:props.eventId } })
     }
 
     const handleClickResult = () => {
