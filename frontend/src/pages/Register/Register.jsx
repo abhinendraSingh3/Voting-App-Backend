@@ -78,9 +78,9 @@ function Register() {
     }
 
     return (
-        <div className="register-container">
+        <div className="register-container">      
             <form className="register-form" onSubmit={handleSubmit}>
-                <h2>Register</h2>
+                <h2>Register Yourself</h2>
 
                 <input type="text" name="name" value={state.name} placeholder="Enter Your Name" onChange={handleChange}></input>
                 <input type="email" name="email" value={state.email} placeholder="Enter your Email" onChange={handleChange}></input>
