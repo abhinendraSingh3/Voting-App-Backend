@@ -117,7 +117,7 @@ const voteStatus = async (req, res) => {
         // Check if student has voted 
         const voteCheck = await voteSch.find({ voter: studentid }).populate([
             { path: 'votedfor' },
-            { path: 'election' },
+            { path: 'election' }, 
         ]);
         console.log(voteCheck)
 

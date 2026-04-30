@@ -27,7 +27,7 @@ const electionSchema=new mongoose.Schema({
     }
 
 })
-
+ //exports to use in schemas
 // 2026-03-14  → date
 // T           → separator
 // 10:30:00    → time
